@@ -105,6 +105,7 @@ void BL2GLWidget::paintGL ()
 
   // Borramos el frame-buffer
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  program->bind();
 
   // Rick
   glBindVertexArray (VAO_Rick);
@@ -180,19 +181,21 @@ void BL2GLWidget::viewTransform ()
 }
 
 
-void BL2GLWidget::resizeGL (int w, int h) 
-{
-// Este código es necesario únicamente para Macs con pantalla retina.
+void BL2GLWidget::resizeGL(int w, int h) {
 #ifdef __APPLE__
   GLint vp[4];
-  glGetIntegerv (GL_VIEWPORT, vp);
+  glGetIntegerv(GL_VIEWPORT, vp);
   ample = vp[2];
   alt = vp[3];
 #else
   ample = w;
   alt = h;
 #endif
-  ra = float(ample)/float(alt);
+
+  // Certifique-se de que alt não seja zero
+  if (alt == 0) alt = 1;
+
+  ra = float(ample) / float(alt);
   factorAngleY = M_PI / ample;
   factorAngleX = M_PI / alt;
   projectTransform();
