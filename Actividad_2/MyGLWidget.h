@@ -10,6 +10,15 @@ class MyGLWidget : public BL2GLWidget {
     ~MyGLWidget();
 
   protected:
+    // initializeGL - Aqui incluim les inicialitzacions del contexte grafic.
+    void initializeGL( )  override;
+    // paintGL - Mètode cridat cada cop que cal refrescar la finestra.
+    // Tot el que es dibuixa es dibuixa aqui.
+    void paintGL( ) override;
+
+    void ProjectTransform();
+
+    GLuint projLoc;
 
   private:
     
