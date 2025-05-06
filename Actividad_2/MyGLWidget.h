@@ -17,6 +17,6 @@ class MyGLWidget : public BL2GLWidget {
     void setRickPosition(float x, float y, float z);
 
   private:
-  
+    int cubPos = 2.5;
     void CubTransform() override;
 };

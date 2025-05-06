@@ -19,10 +19,11 @@ void MyGLWidget::initializeGL () {
 void MyGLWidget::paintGL() {
     // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
-}
 
-void MyGLWidget::setCubPosition(float x, float y, float z) {
-    posCub = glm::vec3(x, y, z);
+    glBindVertexArray (VAO_Cub);
+    CubTransform();
+    glDrawArrays(GL_TRIANGLES, 0, 36);  
+
 }
 
 void MyGLWidget::setRickPosition(float x, float y, float z) {
@@ -31,7 +32,9 @@ void MyGLWidget::setRickPosition(float x, float y, float z) {
 
 void MyGLWidget::CubTransform() {
     glm::mat4 TG(1.0f);
-    TG = glm::translate(TG, glm::vec3 (0, 0, -2.5));
+    TG = glm::translate(TG, glm::vec3 (0, 0, cubPos));
+    TG = glm::scale(TG, glm::vec3(0.5, 2, 3));
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+    cubPos *= -1;
 }
 
