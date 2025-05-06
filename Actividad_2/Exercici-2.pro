@@ -1,7 +1,9 @@
-TEMPLATE    = app
-QT         += opengl 
+CONFIG += QMAKE_APPLE_DEVICE_ARCHS=arm64
 
-INCLUDEPATH +=  /usr/include/glm  \
+TEMPLATE = app
+QT += core gui openglwidgets widgets
+
+INCLUDEPATH += /opt/homebrew/opt/glm/include  \
                 ./Model 
 
 FORMS += MyForm.ui
