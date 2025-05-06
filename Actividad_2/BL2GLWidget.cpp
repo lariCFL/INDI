@@ -47,7 +47,7 @@ int BL2GLWidget::printOglError(const char file[], int line, const char func[])
 
 BL2GLWidget::BL2GLWidget (QWidget* parent) : QOpenGLWidget(parent), program(NULL)
 {
-  setFocusPolicy(Qt::StrongFocus);  // per rebre events de teclat
+  setFocusPolicy(Qt::StrongFocus); //para recibir eventos de teclado
   xClick = yClick = 0;
   DoingInteractive = NONE;
   timer=new QTimer(this);
@@ -63,11 +63,11 @@ BL2GLWidget::~BL2GLWidget ()
 
 void BL2GLWidget::initializeGL ()
 {
-  // Cal inicialitzar l'ús de les funcions d'OpenGL
+  // Es necesario inicializar el uso de las funciones de OpenGL
   initializeOpenGLFunctions();  
   glEnable(GL_DEPTH_TEST);
   
-  glClearColor(0.5, 0.7, 1.0, 1.0); // defineix color de fons (d'esborrat)
+  glClearColor(0.5, 0.7, 1.0, 1.0); // define el color de fondo (de borrado)
   carregaShaders();
   creaBuffersModels();
   creaBuffersTerra();
@@ -100,10 +100,10 @@ void BL2GLWidget::updatePosition()
 
 void BL2GLWidget::paintGL ()
 {
-  // descomentar per canviar paràmetres
+  // descomentar para cambiar parámetros
   // glViewport (0, 0, ample, alt);
 
-  // Esborrem el frame-buffer
+  // Borramos el frame-buffer
   glClear (GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Rick
@@ -116,12 +116,12 @@ void BL2GLWidget::paintGL ()
   VideoCameraTransform();
   glDrawArrays(GL_TRIANGLES, 0, videoCamera.faces().size()*3);
 
-  // Cub
+  // Cubo
   glBindVertexArray (VAO_Cub);
   CubTransform();
   glDrawArrays(GL_TRIANGLES, 0, 36);  
   
-  // Terra
+  // Suelo
   glBindVertexArray (VAO_Terra);
   identTransform();
   glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -173,7 +173,7 @@ void BL2GLWidget::projectTransform ()
 
 void BL2GLWidget::viewTransform ()
 {
-  // Matriu de posició i orientació de l'observador
+  // Matriz de posición y orientación del observador
   glm::mat4 View(1.0f);
   View = glm::lookAt (obs, vrp, up);
   glUniformMatrix4fv (viewLoc, 1, GL_FALSE, &View[0][0]);
@@ -182,7 +182,7 @@ void BL2GLWidget::viewTransform ()
 
 void BL2GLWidget::resizeGL (int w, int h) 
 {
-// Aquest codi és necessari únicament per a MACs amb pantalla retina.
+// Este código es necesario únicamente para Macs con pantalla retina.
 #ifdef __APPLE__
   GLint vp[4];
   glGetIntegerv (GL_VIEWPORT, vp);
@@ -233,7 +233,7 @@ void BL2GLWidget::mouseMoveEvent(QMouseEvent *e)
 
 void BL2GLWidget::creaBuffersTerra ()
 {
-  // VBO amb la posició dels vèrtexs
+  // VBO con la posición de los vértices
   glm::vec3 posTerra[4] = {
         glm::vec3(-6.0, 0.0, -4.0),
         glm::vec3(-6.0, 0.0,  4.0),
@@ -268,8 +268,8 @@ void BL2GLWidget::creaBuffersTerra ()
 
 void BL2GLWidget::creaBuffersCub ()
 {
-  // Dades del cub
-  // Vèrtexs del cub
+  // Datos del cubo
+  // Vértices del cubo
   glm::vec3 vertexs[8] = {
        /* 0*/ glm::vec3( -0.5, 0.0, -0.5),  /* 1*/ glm::vec3( 0.5, 0.0, -0.5),
        /* 2*/ glm::vec3( -0.5, 1.0, -0.5),  /* 3*/ glm::vec3( 0.5, 1.0, -0.5),
@@ -277,7 +277,7 @@ void BL2GLWidget::creaBuffersCub ()
        /* 6*/ glm::vec3( -0.5, 1.0, 0.5),  /* 7*/ glm::vec3( 0.5, 1.0, 0.5)
   };
 
-  // VBO amb la posició dels vèrtexs
+  // VBO con la posición de los vértices
   glm::vec3 poscub[36] = {  // 12 triangles
        vertexs[0], vertexs[2], vertexs[1],
        vertexs[1], vertexs[2], vertexs[3],
@@ -304,7 +304,7 @@ void BL2GLWidget::creaBuffersCub ()
         color, color, color, color, color, color
   };
   
-  // Creació del Vertex Array Object del cub
+  // Creación del Vertex Array Object del cubo
   glGenVertexArrays(1, &VAO_Cub);
   glBindVertexArray(VAO_Cub);
 
@@ -313,14 +313,14 @@ void BL2GLWidget::creaBuffersCub ()
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Cub[0]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(poscub), poscub, GL_STATIC_DRAW);
 
-  // Activem l'atribut vertexLoc
+  // Activamos el atributo vertexLoc
   glVertexAttribPointer(vertexLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(vertexLoc);
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO_Cub[1]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(colorcub), colorcub, GL_STATIC_DRAW);
 
-  // Activem l'atribut normaBLoc
+  // Activamos el atributo normaBLoc
   glVertexAttribPointer(colorLoc, 3, GL_FLOAT, GL_FALSE, 0, 0);
   glEnableVertexAttribArray(colorLoc);
 
@@ -329,7 +329,7 @@ void BL2GLWidget::creaBuffersCub ()
 
 void BL2GLWidget::calculaCapsaModel (Model &p, float &escala, float alcadaDesitjada, glm::vec3 &centreBase)
 {
-  // Càlcul capsa contenidora i valors transformacions inicials
+  // Cálculo de la caja contenedora y valores de transformaciones iniciales
   float minx, miny, minz, maxx, maxy, maxz;
   minx = maxx = p.vertices()[0];
   miny = maxy = p.vertices()[1];
@@ -352,24 +352,23 @@ void BL2GLWidget::calculaCapsaModel (Model &p, float &escala, float alcadaDesitj
   escala = alcadaDesitjada/(maxy-miny);
   centreBase[0] = (minx+maxx)/2.0; centreBase[1] = miny; centreBase[2] = (minz+maxz)/2.0;
 }
-
 void BL2GLWidget::creaBuffersModels ()
 {
-  // Càrrega dels models
+  // Carga de los modelos
   rick.load("./models/Rick.obj");
   videoCamera.load("./models/VideoCamera.obj");
 
-  // Creació de VAOs i VBOs pel Ricky
+  // Creación de VAOs y VBOs para el Ricky
   glGenVertexArrays(1, &VAO_Rick);
   	
-  // Calculem la capsa contenidora del model
+  // Calculamos la caja contenedora del modelo
   calculaCapsaModel(rick, escalaRick, alcadaRick, centreCaixaRick);
   glBindVertexArray(VAO_Rick);
 
   GLuint VBO[2];
   glGenBuffers(2, VBO);
 
-  // geometria
+  // geometría
   glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*rick.faces().size()*3*3,
 	   rick.VBO_vertices(), GL_STATIC_DRAW);
@@ -386,14 +385,14 @@ void BL2GLWidget::creaBuffersModels ()
 
   glGenBuffers(2, VBO);
   
-  // Creació de VAOs i VBOs per la càmera
+  // Creación de VAOs y VBOs para la cámara
   glGenVertexArrays(1, &VAO_VideoCamera);
   	
-  // Calculem la capsa contenidora del model
+  // Calculamos la caja contenedora del modelo
   calculaCapsaModel(videoCamera, escalaVideoCamera, alcadaVideoCamera, centreCaixaVideoCamera);
   glBindVertexArray(VAO_VideoCamera);
 
-  // geometria
+  // geometría
   glBindBuffer(GL_ARRAY_BUFFER, VBO[0]);
   glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat)*videoCamera.faces().size()*3*3,
 	   videoCamera.VBO_vertices(), GL_STATIC_DRAW);
@@ -413,30 +412,28 @@ void BL2GLWidget::creaBuffersModels ()
 
 void BL2GLWidget::carregaShaders()
 {
-  // Creem els shaders per al fragment shader i el vertex shader
+  // Creamos los shaders para el fragment shader y el vertex shader
   QOpenGLShader fs (QOpenGLShader::Fragment, this);
   QOpenGLShader vs (QOpenGLShader::Vertex, this);
-  // Carreguem el codi dels fitxers i els compilem
+  // Cargamos el código de los archivos y los compilamos
   fs.compileSourceFile("shaders/basicShader.frag");
   vs.compileSourceFile("shaders/basicShader.vert");
-  // Creem el program
+  // Creamos el programa
   program = new QOpenGLShaderProgram(this);
-  // Li afegim els shaders corresponents
+  // Le añadimos los shaders correspondientes
   program->addShader(&fs);
   program->addShader(&vs);
-  // Linkem el program
+  // Enlazamos el programa
   program->link();
-  // Indiquem que aquest és el program que volem usar
+  // Indicamos que este es el programa que queremos usar
   program->bind();
 
-  // Identificador per als  atributs
+  // Identificador para los atributos
   vertexLoc = glGetAttribLocation (program->programId(), "vertex");
   colorLoc = glGetAttribLocation (program->programId(), "color");
 
-  // Identificadors dels uniform locations
+  // Identificadores de los uniform locations
   transLoc = glGetUniformLocation(program->programId(), "TG");
   projLoc  = glGetUniformLocation (program->programId(), "Proj");
   viewLoc  = glGetUniformLocation (program->programId(), "View");
 }
-
-

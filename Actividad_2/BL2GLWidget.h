@@ -22,45 +22,45 @@ class BL2GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
   protected:
     int printOglError(const char file[], int line, const char func[]);
   
-    // initializeGL - Aqui incluim les inicialitzacions del contexte grafic.
+    // initializeGL - Aquí incluimos las inicializaciones del contexto gráfico.
     virtual void initializeGL ( );
-    // paintGL - Mètode cridat cada cop que cal refrescar la finestra.
-    // Tot el que es dibuixa es dibuixa aqui.
+    // paintGL - Método llamado cada vez que es necesario refrescar la ventana.
+    // Todo lo que se dibuja se dibuja aquí.
     virtual void paintGL ( );
-    // resizeGL - És cridat quan canvia la mida del widget
+    // resizeGL - Es llamado cuando cambia el tamaño del widget
     virtual void resizeGL (int width, int height);
-    // keyPressEvent - Es cridat quan es prem una tecla
+    // keyPressEvent - Es llamado cuando se presiona una tecla
     virtual void keyPressEvent (QKeyEvent *event);
-    // mouse{Press/Release/Move}Event - Són cridades quan es realitza l'event
-    // corresponent de ratolí
+    // mouse{Press/Release/Move}Event - Son llamados cuando se realiza el evento
+    // correspondiente del ratón
     virtual void mousePressEvent (QMouseEvent *event);
     virtual void mouseReleaseEvent (QMouseEvent *event);
     virtual void mouseMoveEvent (QMouseEvent *event);
 
-    // iniEscena - Aqui incluim les inicialitzacions de l'escena
+    // iniEscena - Aquí incluimos las inicializaciones de la escena
     virtual void iniEscena ();
-    // iniCamera - Aqui incluim les inicialitzacions de la camera
+    // iniCamera - Aquí incluimos las inicializaciones de la cámara
     virtual void iniCamera ();    
-    // creaBuffersModels - Aquí carreguem els fitxers obj i fem la inicialització dels diferents VAOS i VBOs
+    // creaBuffersModels - Aquí cargamos los archivos obj y hacemos la inicialización de los diferentes VAOs y VBOs
     virtual void creaBuffersModels ();
-	// creaBuffersTerra - Aqui inicialitzem el VAO i els VBO d'un model fet a mà que representa un cub
+    // creaBuffersTerra - Aquí inicializamos el VAO y los VBO de un modelo hecho a mano que representa un cubo
     virtual void creaBuffersCub ();
-    // creaBuffersTerra - Aqui inicialitzem el VAO i els VBO d'un model fet a mà que representa un terra
+    // creaBuffersTerra - Aquí inicializamos el VAO y los VBO de un modelo hecho a mano que representa un suelo
     virtual void creaBuffersTerra ();
-    // carregaShaders - Aquí carreguem els shaders, els compilem i els linkem. També busquem els uniform locations que fem servir.
+    // carregaShaders - Aquí cargamos los shaders, los compilamos y los enlazamos. También buscamos las uniform locations que utilizamos.
     virtual void carregaShaders ();
     
-    // viewTransform i projecTransform - Es fan servir per a construir i enviar als shader les matrius de càmera (View i Projection respectivament).
+    // viewTransform y projecTransform - Se utilizan para construir y enviar a los shaders las matrices de cámara (View y Projection respectivamente).
     virtual void viewTransform ();
     virtual void projectTransform ();
     
-    // {Rick/VideoCamera/Cub/ident}Transform - Funcions per construir i enviar al shader diferents matrius de transformació geomètrica TG
+    // {Rick/VideoCamera/Cub/ident}Transform - Funciones para construir y enviar al shader diferentes matrices de transformación geométrica TG
     virtual void RickTransform();
-	virtual void VideoCameraTransform();
-	virtual void CubTransform();
+    virtual void VideoCameraTransform();
+    virtual void CubTransform();
     virtual void identTransform();
     
-    // calculaCapsaModel - Calcula la capsa contenidora d'un Model p retornant el centre de la seva base a CentreBase, i el factor d'escala necessari per a que la seva alçada sigui alcadaDesitjada.
+    // calculaCapsaModel - Calcula la caja contenedora de un Modelo p retornando el centro de su base en CentreBase, y el factor de escala necesario para que su altura sea alcadaDesitjada.
     virtual void calculaCapsaModel (Model &p, float &escala, float alcadaDesitjada, glm::vec3 &CentreBase);
 
     // attribute locations
@@ -71,9 +71,9 @@ class BL2GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
 
     // VAO names
     GLuint VAO_Rick;
-	GLuint VAO_VideoCamera;
+    GLuint VAO_VideoCamera;
     GLuint VAO_Terra;
-	GLuint VAO_Cub;
+    GLuint VAO_Cub;
 
     // Program
     QOpenGLShaderProgram *program;
@@ -92,19 +92,19 @@ class BL2GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     float fov, ra, znear, zfar;
     glm::vec3 centreEscena, obs, vrp, up;
 
-    // Model, posició, escala i orientació del Rick i de la videocamera
+    // Modelo, posición, escala y orientación de Rick y de la videocámara
     Model rick,videoCamera;
     glm::vec3 posRick=glm::vec3(0,0,-3);
     float alcadaRick=2, alcadaVideoCamera=1;
     float angleRick = M_PI/2, angleVideoCamera=M_PI/2;
-	float escalaRick, escalaVideoCamera;
-	glm::vec3 centreCaixaRick, centreCaixaVideoCamera;
-	
-	QTimer *timer;
-	
-	public slots:
-	
-	virtual void updatePosition();
+    float escalaRick, escalaVideoCamera;
+    glm::vec3 centreCaixaRick, centreCaixaVideoCamera;
+    
+    QTimer *timer;
+    
+    public slots:
+    
+    virtual void updatePosition();
 
 };
 
