@@ -1,0 +1,5 @@
+MyGLWidget.cpp:
+void MyGLWidget::creaBufferBola(){
+    qreal h,s,v,a;
+    to:
+    float h,s,v,a;
