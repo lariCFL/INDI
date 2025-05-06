@@ -12,12 +12,26 @@ MyGLWidget::~MyGLWidget() {
 void MyGLWidget::initializeGL () {
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
-    posRick = glm::vec3(0, 0, 0);
+    alcadaRick = 1.5;
+    setRickPosition(-5, 0, 0);
 }
 
 void MyGLWidget::paintGL() {
     // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
+}
 
+void MyGLWidget::setCubPosition(float x, float y, float z) {
+    posCub = glm::vec3(x, y, z);
+}
+
+void MyGLWidget::setRickPosition(float x, float y, float z) {
+    posRick = glm::vec3(x, y, z);
+}
+
+void MyGLWidget::CubTransform() {
+    glm::mat4 TG(1.0f);
+    TG = glm::translate(TG, glm::vec3 (0, 0, -2.5));
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
 }
 

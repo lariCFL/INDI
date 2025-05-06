@@ -13,7 +13,10 @@ class MyGLWidget : public BL2GLWidget {
   protected:
     void initializeGL( )  override;
     void paintGL( )      override;
+    void setCubPosition(float x, float y, float z);
+    void setRickPosition(float x, float y, float z);
 
   private:
-    void setRickPosition(float x, float y, float z);    
+  
+    void CubTransform() override;
 };
