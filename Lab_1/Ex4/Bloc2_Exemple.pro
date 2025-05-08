@@ -10,4 +10,4 @@ HEADERS += MyForm.h BL2GLWidget.h MyGLWidget.h
 
 SOURCES += main.cpp MyForm.cpp \
         BL2GLWidget.cpp MyGLWidget.cpp  \
-        ./Model/model.cpp
+        ../Model/model.cpp
