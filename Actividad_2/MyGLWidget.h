@@ -13,10 +13,12 @@ class MyGLWidget : public BL2GLWidget {
   protected:
     void initializeGL( )  override;
     void paintGL( )      override;
-    void setCubPosition(float x, float y, float z);
     void setRickPosition(float x, float y, float z);
+    float alcadaVideoCamera = 0.5 override;
 
   private:
     float cubPos = 2.5;
     void CubTransform() override;
+    void VideoCameraTransform() override;
+
 };
