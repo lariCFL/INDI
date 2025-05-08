@@ -23,6 +23,8 @@ void MyGLWidget::initializeGL ( ){
 }
 
 void MyGLWidget::CreateBuffersModels() {
+    DEBUG("CreateBuffersModels");
+
     // Carregar o modelo HomerProves.obj antes de criar os buffers
     m.load("../Models_3D/HomerProves.obj");
 
@@ -50,12 +52,19 @@ void MyGLWidget::CreateBuffersModels() {
 }
 
 
-void MyGLWidget::paintGL ( ){
+void MyGLWidget::paintGL() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //BL2GLWidget::paintGL();
     DEBUG("PaintGL");
-    // Call the projectTransform method
+
+    // Aplicar as transformações
     projectTransform();
+    viewTransform();
+
+    // Desenhar Homer
+    glBindVertexArray(VAO_Homer);
+    glDrawArrays(GL_TRIANGLES, 0, m.faces().size() * 3);  // Cada face tem 3 vértices
+    glBindVertexArray(0);
 }
 
 void MyGLWidget::projectTransform() {

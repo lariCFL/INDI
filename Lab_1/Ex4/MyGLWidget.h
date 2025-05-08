@@ -23,7 +23,7 @@ class MyGLWidget : public BL2GLWidget {
 
     void ini_camera();
 
-    void CreaBuffersModels();
+    void CreateBuffersModels();
 
     GLuint viewLoc, transLoc;
 
