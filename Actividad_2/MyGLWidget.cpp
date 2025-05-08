@@ -52,3 +52,21 @@ void MyGLWidget::VideoCameraTransform() {
 }
 
 
+// ----------------------------------------
+
+// Ángulos iniciales: ψ = M_PI/4.0 y θ = M_PI/4.0.
+
+void MyGLWidget::iniCamera() {
+    // Define a posição do observador, o ponto de referência e o vetor "up"
+    obs = glm::vec3(10, 5, 0);  
+    vrp = glm::vec3(0, 0, 0);  
+    up = glm::vec3(0, 1, 0);    
+    fov = float(M_PI) / 4.0f;  // Campo de visão em perspectiva
+    znear = 1.0f;  // Distância do plano de recorte próximo
+    zfar  = 30.0f;  // Distância do plano de recorte distante
+
+    // Aplica a transformação de visualização
+    viewTransform();
+}
+
+

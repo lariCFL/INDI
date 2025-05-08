@@ -20,4 +20,7 @@ class MyGLWidget : public BL2GLWidget {
     void CubTransform() override;
     void VideoCameraTransform() override;
 
+    // Camara
+    void iniCamera() override;
+
 };

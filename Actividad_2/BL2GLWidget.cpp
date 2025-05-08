@@ -164,41 +164,37 @@ void BL2GLWidget::identTransform ()
   glm::mat4 TG(1.0f);
   glUniformMatrix4fv (transLoc, 1, GL_FALSE, &TG[0][0]);
 }
-
+// Función para configurar la matriz de proyección
 void BL2GLWidget::projectTransform ()
 {
-  glm::mat4 Proj(1.0f);
-  Proj = glm::perspective (fov, ra, znear, zfar);
-  glUniformMatrix4fv (projLoc, 1, GL_FALSE, &Proj[0][0]);
+  glm::mat4 Proj(1.0f); // Inicializamos la matriz de proyección como la identidad
+  Proj = glm::perspective (fov, ra, znear, zfar); // Configuramos la matriz de proyección en perspectiva con los parámetros de cámara
+  glUniformMatrix4fv (projLoc, 1, GL_FALSE, &Proj[0][0]); // Enviamos la matriz de proyección al shader
 }
 
+// Función para configurar la matriz de vista
 void BL2GLWidget::viewTransform ()
 {
-  // Matriz de posición y orientación del observador
-  glm::mat4 View(1.0f);
-  View = glm::lookAt (obs, vrp, up);
-  glUniformMatrix4fv (viewLoc, 1, GL_FALSE, &View[0][0]);
+  glm::mat4 View(1.0f); // Inicializamos la matriz de vista como la identidad
+  View = glm::lookAt (obs, vrp, up); // Configuramos la matriz de vista con la posición del observador, el punto de referencia y el vector "up"
+  glUniformMatrix4fv (viewLoc, 1, GL_FALSE, &View[0][0]); // Enviamos la matriz de vista al shader
 }
 
-
+// Función que se llama al redimensionar la ventana
 void BL2GLWidget::resizeGL(int w, int h) {
 #ifdef __APPLE__
-  GLint vp[4];
-  glGetIntegerv(GL_VIEWPORT, vp);
-  ample = vp[2];
-  alt = vp[3];
+  GLint vp[4]; // Array para almacenar los valores del viewport
+  glGetIntegerv(GL_VIEWPORT, vp); // Obtenemos el viewport actual en sistemas macOS
+  ample = vp[2]; // Ancho del viewport
+  alt = vp[3]; // Altura del viewport
 #else
-  ample = w;
-  alt = h;
+  ample = w; // Ancho de la ventana
+  alt = h; // Altura de la ventana
 #endif
-
-  // Certifique-se de que alt não seja zero
-  if (alt == 0) alt = 1;
-
-  ra = float(ample) / float(alt);
-  factorAngleY = M_PI / ample;
-  factorAngleX = M_PI / alt;
-  projectTransform();
+  ra = float(ample) / float(alt); // Calculamos la relación de aspecto
+  factorAngleY = M_PI / ample; // Factor de ajuste para el ángulo en el eje Y
+  factorAngleX = M_PI / alt; // Factor de ajuste para el ángulo en el eje X
+  projectTransform(); // Actualizamos la matriz de proyección con los nuevos valores
 }
 
 void BL2GLWidget::keyPressEvent(QKeyEvent* event) 
