@@ -96,7 +96,7 @@ class BL2GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core
     Model rick,videoCamera;
     glm::vec3 posRick=glm::vec3(0,0,-3);
     float alcadaRick=2, alcadaVideoCamera=1;
-    float angleRick = M_PI/2, angleVideoCamera=M_PI/2
+    float angleRick = M_PI/2, angleVideoCamera=M_PI/2;
     float escalaRick, escalaVideoCamera;
     glm::vec3 centreCaixaRick, centreCaixaVideoCamera;
     
