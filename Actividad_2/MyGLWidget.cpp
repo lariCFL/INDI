@@ -12,8 +12,8 @@ MyGLWidget::~MyGLWidget() {
 void MyGLWidget::initializeGL () {
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
-    alcadaRick = 1.5;
     setRickPosition(-5, 0, 0);
+    angleVideoCamera *= 180;
 }
 
 void MyGLWidget::paintGL() {
