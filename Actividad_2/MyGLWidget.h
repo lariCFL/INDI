@@ -14,7 +14,6 @@ class MyGLWidget : public BL2GLWidget {
     void initializeGL( )  override;
     void paintGL( )      override;
     void setRickPosition(float x, float y, float z);
-    float alcadaVideoCamera = 0.5 override;
 
   private:
     float cubPos = 2.5;
