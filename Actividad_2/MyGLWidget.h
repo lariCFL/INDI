@@ -24,5 +24,5 @@ class MyGLWidget : public BL2GLWidget {
     void iniCamera() override;
 
     void resizeGL(int width, int height) override;
-    float fovini = float(M_PI)/4.0f;
+    float fovIni = float(M_PI)/4.0f;
 };
