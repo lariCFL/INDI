@@ -32,8 +32,6 @@ void BL2GLWidget::paintGL ()
   
   // Esborrem el frame-buffer
   glClear (GL_COLOR_BUFFER_BIT);
-  program->bind();
-
 
   // Carreguem la transformació de model
   modelTransform ();

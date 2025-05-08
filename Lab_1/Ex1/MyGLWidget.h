@@ -15,7 +15,8 @@ class MyGLWidget : public BL2GLWidget {
     // Tot el que es dibuixa es dibuixa aqui.
     void paintGL( ) override;
 
-    void ProjectTransform();
+    void projectTransform();
 
-    GLuint projLoc;
+    GLuint transLoc;
+
 };
