@@ -10,10 +10,12 @@ MyGLWidget::~MyGLWidget() {
 }
 
 void MyGLWidget::initializeGL () {
+    alcadaVideoCamera = 0.5;
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
     setRickPosition(-5, 0, 0);
     angleVideoCamera *= 180;
+    VideoCameraTransform();
 }
 
 void MyGLWidget::paintGL() {
@@ -37,4 +39,14 @@ void MyGLWidget::CubTransform() {
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
     cubPos *= -1;
 }
+
+void MyGLWidget::VideoCameraTransform() {
+    glm::mat4 TG(1.0f);  
+    TG=glm::rotate(TG, angleVideoCamera, glm::vec3(0,2.25f,-1.0f));
+    TG=glm::scale(TG, glm::vec3(escalaVideoCamera, escalaVideoCamera, escalaVideoCamera));
+    TG=glm::translate(TG, -centreCaixaVideoCamera);
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+}
+
+
 
