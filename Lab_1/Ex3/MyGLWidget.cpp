@@ -62,7 +62,7 @@ void MyGLWidget::ini_camera() {
 
     // UP: Vetor "para cima", que define a orientação da câmera. Aqui está definido como
     // (0, 1, 0), indicando que o eixo Y é o "cima" da câmera.
-    UP = glm::vec3(0, 1, 0);
+    UP = glm::vec3(1, 0, 0);
 
     // FOV (Field of View): Campo de visão vertical da câmera, em radianos.
     // Aqui está definido como π/2 (90 graus), ou seja, um campo de visão bem amplo.

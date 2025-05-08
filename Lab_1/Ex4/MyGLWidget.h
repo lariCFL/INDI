@@ -1,6 +1,10 @@
 // MyGLWidget.h
 #include "BL2GLWidget.h"
 
+#include "model.h"
+
+#ind
+
 class MyGLWidget : public BL2GLWidget {
   Q_OBJECT
 
@@ -26,4 +30,7 @@ class MyGLWidget : public BL2GLWidget {
     glm::vec3 OBS, VRP, UP;
     float FOV, ra, znear, zfar;
 
+
+    Model m;
+    GLuint VAO_Homer;
 };
