@@ -3,8 +3,6 @@
 
 #include "model.h"
 
-#ind
-
 class MyGLWidget : public BL2GLWidget {
   Q_OBJECT
 
@@ -25,11 +23,12 @@ class MyGLWidget : public BL2GLWidget {
 
     void ini_camera();
 
+    void CreaBuffersModels();
+
     GLuint viewLoc, transLoc;
 
     glm::vec3 OBS, VRP, UP;
     float FOV, ra, znear, zfar;
-
 
     Model m;
     GLuint VAO_Homer;
