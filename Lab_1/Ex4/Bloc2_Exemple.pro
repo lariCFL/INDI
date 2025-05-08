@@ -1,20 +1,7 @@
-CONFIG += QMAKE_APPLE_DEVICE_ARCHS=arm64
+TEMPLATE    = app
+QT         += opengl 
 
-TARGET = ejecutable
-TEMPLATE = app
-
-QT += core gui openglwidgets widgets
-
-INCLUDEPATH += /opt/homebrew/opt/glm/include
-
-# Diretório com os headers e source do model
-INCLUDEPATH += $$PWD/../../Models_3D/Model
-DEPENDPATH += $$PWD/../../Models_3D/Model
-
-# Adicionando os arquivos ao projeto
-SOURCES += $$PWD/../../Models_3D/Model/model.cpp
-HEADERS += $$PWD/../../Models_3D/Model/model.h
-
+INCLUDEPATH +=  /usr/include/glm
 
 FORMS += MyForm.ui
 
