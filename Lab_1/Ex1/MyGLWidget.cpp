@@ -15,14 +15,28 @@ MyGLWidget::~MyGLWidget() {
 void MyGLWidget::initializeGL ( ){
 
     BL2GLWidget::initializeGL();
-    DEBUG("InitializeGL");
+    //DEBUG("InitializeGL");
 }
 
 void MyGLWidget::paintGL ( ){
 
     BL2GLWidget::paintGL();
     DEBUG("PaintGL");
-
+    // Call the projectTransform method
+    projectTransform();
 }
 
+void MyGLWidget::projectTransform() {
+
+    float FOV = float(M_PI) / 2.0f; // Field of View
+    float ra = 1.0f; // Aspect Ratio
+    float znear = 0.4f; // Near plane
+    float zfar = 3.0f; // Far plane
+   
+    // Set the projection matrix
+    glm::mat4 Proj = glm::perspective(FOV, ra, znear, zfar);
+
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &Proj[0][0]);
+    DEBUG("ProjectTransform");
+}
 
