@@ -16,8 +16,8 @@ void MyGLWidget::initializeGL ( ){
 
     BL2GLWidget::initializeGL();
     //DEBUG("InitializeGL");
-    projLoc = glGetUniformLocation(program->programId(), "proj");
     viewLoc = glGetUniformLocation(program->programId(), "view");
+    transLoc = glGetUniformLocation(program->programId(), "trans");
 
 }
 
@@ -35,11 +35,13 @@ void MyGLWidget::projectTransform() {
     float ra = 1.0f; // Aspect Ratio
     float znear = 0.4f; // Near plane
     float zfar = 3.0f; // Far plane
+
+    viewTransform();
    
     // Set the projection matrix
-    glm::mat4 Proj = glm::perspective(FOV, ra, znear, zfar);
+    glm::mat4 Trans = glm::perspective(FOV, ra, znear, zfar);
 
-    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &Proj[0][0]);
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &Trans[0][0]);
     DEBUG("ProjectTransform");
 }
 
@@ -52,7 +54,7 @@ void MyGLWidget::viewTransform() {
     glm::mat4 View = glm::lookAt(OBS, VRP, UP);
     
     // Set the view matrix in the shader
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, &View[0][0]);
     DEBUG("ViewTransform");
 }
 
