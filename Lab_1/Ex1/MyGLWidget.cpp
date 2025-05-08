@@ -16,6 +16,7 @@ void MyGLWidget::initializeGL ( ){
 
     BL2GLWidget::initializeGL();
     //DEBUG("InitializeGL");
+    projLoc = glGetUniformLocation(program->programId(), "proj");
 }
 
 void MyGLWidget::paintGL ( ){
@@ -36,7 +37,7 @@ void MyGLWidget::projectTransform() {
     // Set the projection matrix
     glm::mat4 Proj = glm::perspective(FOV, ra, znear, zfar);
 
-    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &Proj[0][0]);
+    glUniformMatrix4fv(projLoc, 1, GL_FALSE, &Proj[0][0]);
     DEBUG("ProjectTransform");
 }
 

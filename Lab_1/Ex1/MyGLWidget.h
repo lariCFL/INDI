@@ -17,6 +17,6 @@ class MyGLWidget : public BL2GLWidget {
 
     void projectTransform();
 
-    GLuint transLoc;
+    GLuint projLoc;
 
 };
