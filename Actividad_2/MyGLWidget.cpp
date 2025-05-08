@@ -42,12 +42,12 @@ void MyGLWidget::CubTransform() {
 
 void MyGLWidget::VideoCameraTransform() {
     glm::mat4 TG(1.0f);  
-    glm::vec3 mov = glm::vec3(0, 2.25f, -1.0f - centreCaixaVideoCamera.z);
-    TG=glm::translate(TG, angleVideoCamera, mov);
-    TG=glm::scale(TG, glm::vec3(escalaVideoCamera, escalaVideoCamera, escalaVideoCamera));
-    TG=glm::translate(TG, -centreCaixaVideoCamera);
+
+    TG = glm::translate(TG, glm::vec3(0, 2.25f, -1.0f));
+    TG = glm::scale(TG, glm::vec3(escalaVideoCamera, escalaVideoCamera, escalaVideoCamera));
+    TG = glm::translate(TG, -centreCaixaVideoCamera);
+
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
 }
-
 
 
