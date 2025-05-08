@@ -22,7 +22,16 @@ class MyGLWidget : public BL2GLWidget {
 
     // Camara
     void iniCamera() override;
-
+    void viewTransform() override;
     void resizeGL(int width, int height) override;
+
+    // Modelos
     float fovIni = float(M_PI)/4.0f;
-};
+    float anglePsi;
+    float angleTheta;
+
+    // Mouse and keyboard
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
+
+  };

@@ -14,8 +14,12 @@ void MyGLWidget::initializeGL()
 {
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
+
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
+
+    anglePsi = M_PI / 4.0f;
+    angleTheta = M_PI / 4.0f;
     setRickPosition(-5, 0, 0);
     angleVideoCamera *= 180;
     VideoCameraTransform();
@@ -84,4 +88,28 @@ void MyGLWidget::resizeGL(int width, int height)
         fov = 2.0f * atan(tan(fovIni / 2.0f) / ra);
     else
         fov = fovIni;
+}
+
+void MyGLWidget::viewTransform()
+{
+    glm::mat4 View(1.0f);
+    View = glm::translate(View, glm::vec3(0, 0, -radiEscena));
+    View = glm::rotate(View, -angleTheta, glm::vec3(1, 0, 0));
+    View = glm::rotate(View, -anglePsi, glm::vec3(0, 1, 0));
+    View = glm::translate(View, -centreEscena);
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
+}
+
+
+// ----------------------------------------
+
+void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
+{
+    if (DoingInteractive == ROTATE) {
+        angleTheta += (event->x() - xClick) / float(alt);
+        anglePsi += (event->y() - yClick) / float(alt);
+        xClick = event->x();
+        yClick = event->y();
+        update();
+    }
 }
