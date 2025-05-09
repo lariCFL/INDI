@@ -1,5 +1,4 @@
 #include "BL2GLWidget.h"
-
 #include "model.h"
 
 class MyGLWidget : public BL2GLWidget {
@@ -9,33 +8,32 @@ class MyGLWidget : public BL2GLWidget {
     MyGLWidget(QWidget *parent=0) : BL2GLWidget(parent) {}
     ~MyGLWidget();
 
-
   protected:
-    void initializeGL( )  override;
-    void paintGL( )      override;
-    //void setRickPosition(float x, float y, float z);
+    // Métodos principales
+    void initializeGL() override;
+    void paintGL() override;
 
   private:
-    float cubPos = 2.5;
+    // Transformaciones
     void CubTransform() override;
     void VideoCameraTransform() override;
 
-    // Camara
+    // Cámara
     void iniCamera() override;
     void viewTransform() override;
     void resizeGL(int width, int height) override;
-
     void actualizarCamera();
+
+    // Atributos de la cámara
     bool Camera1;
     float fov2;
-
-
-    // Modelos
     float anglePsi;
     float angleTheta;
 
-    // Mouse and keyboard
+    // Interacción
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 
-  };
+    // Otros
+    float cubPos = 2.5;
+};

@@ -6,10 +6,12 @@
 #define CHECK() printOglError(__FILE__, __LINE__, __FUNCTION__)
 #define DEBUG(text) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << ":" << text << std::endl;
 
+// Destructor de la clase
 MyGLWidget::~MyGLWidget()
 {
 }
 
+// Inicializa los parámetros de OpenGL y la cámara
 void MyGLWidget::initializeGL()
 {
     alcadaVideoCamera = 0.5;
@@ -17,19 +19,16 @@ void MyGLWidget::initializeGL()
 
     Camera1 = true;
 
-    // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
-
-    //fov2 = fov;
 
     posRick = glm::vec3(-5, 0, 0);
     angleVideoCamera *= 180;
     VideoCameraTransform();
 }
 
+// Renderiza la escena
 void MyGLWidget::paintGL()
 {
-    // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
     glBindVertexArray(VAO_Cub);
     CubTransform();
@@ -38,11 +37,7 @@ void MyGLWidget::paintGL()
     viewTransform();
 }
 
-
-// ----------------------------------------
-
-// Ángulos iniciales: ψ = M_PI/4.0 y θ = M_PI/4.0.
-
+// Inicializa los parámetros de la cámara
 void MyGLWidget::iniCamera()
 {
     anglePsi = M_PI / 4.0f;
@@ -51,15 +46,17 @@ void MyGLWidget::iniCamera()
     BL2GLWidget::iniCamera();
 }
 
-void MyGLWidget::actualizarCamera(){
-    if (Camera1)
+// Actualiza los parámetros de la cámara dependiendo de Camera1
+void MyGLWidget::actualizarCamera()
+{
+    if (Camera1) // Configuración para la cámara principal
     {
         obs = glm::vec3(10, 5, 0);
         vrp = glm::vec3(0, 0, 0);
         fov = fov2;
         znear = 10.0f;
     }
-    else
+    else // Configuración para la cámara secundaria
     {
         obs = glm::vec3(0, 2.25, -1);
         vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
@@ -69,9 +66,10 @@ void MyGLWidget::actualizarCamera(){
     BL2GLWidget::projectTransform();
 }
 
+// Aplica la transformación de vista según la cámara activa
 void MyGLWidget::viewTransform()
 {
-    if (Camera1)
+    if (Camera1) // Transformación para la cámara principal
     {
         glm::mat4 View(1.0f);
         View = glm::translate(View, glm::vec3(0, 0, -radiEscena * 2));
@@ -80,7 +78,7 @@ void MyGLWidget::viewTransform()
         View = glm::translate(View, -centreEscena);
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
     }
-    else
+    else // Transformación para la cámara secundaria
     {
         actualizarCamera();
         glm::mat4 View(1.0f);
@@ -89,20 +87,19 @@ void MyGLWidget::viewTransform()
     }
 }
 
+// Ajusta el campo de visión al cambiar el tamaño de la ventana
 void MyGLWidget::resizeGL(int width, int height)
 {
     BL2GLWidget::resizeGL(width, height);
-    // Ajusta o FOV vertical se a janela for mais alta do que larga
     if (ra < 1.0f)
-        fov = 2.0f * atan(tan(M_PI/4.0f / 2.0f) / ra);
+        fov = 2.0f * atan(tan(M_PI / 4.0f / 2.0f) / ra);
     else
-        fov = M_PI/4.0f;
+        fov = M_PI / 4.0f;
 
     fov2 = fov;
 }
 
-// ----------------------------------------
-
+// Aplica la transformación al cubo
 void MyGLWidget::CubTransform()
 {
     glm::mat4 TG(1.0f);
@@ -112,6 +109,7 @@ void MyGLWidget::CubTransform()
     cubPos *= -1;
 }
 
+// Aplica la transformación a la cámara de video
 void MyGLWidget::VideoCameraTransform()
 {
     glm::mat4 TG(1.0f);
@@ -123,55 +121,54 @@ void MyGLWidget::VideoCameraTransform()
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
 }
 
-// ----------------------------------------
-
+// Maneja el movimiento del ratón para rotar la cámara
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (DoingInteractive == ROTATE)
     {
-        angleTheta += (event->x() - xClick) / float(alt);
-        anglePsi += (event->y() - yClick) / float(alt);
-        xClick = event->x();
-        yClick = event->y();
-        // DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
-
-        // viewTransform(); // RE-APLICA a matriz de visualização com os novos ângulos
+        if (Camera1) // Rotación solo para la cámara principal
+        {
+            angleTheta += (event->x() - xClick) / float(alt);
+            anglePsi += (event->y() - yClick) / float(alt);
+            xClick = event->x();
+            yClick = event->y();
+        }
         update();
     }
 }
 
-// teclas left and right
+// Maneja los eventos de teclado
 void MyGLWidget::keyPressEvent(QKeyEvent *event)
 {
     makeCurrent();
     switch (event->key())
     {
-    case Qt::Key_Down:
+    case Qt::Key_Down: // Mueve a Rick hacia abajo
         if (posRick.x > -6)
         {
             posRick.x -= 1;
             angleRick = (3 * M_PI) / 2;
         }
         break;
-    case Qt::Key_Up:
+    case Qt::Key_Up: // Mueve a Rick hacia arriba
         if (posRick.x < 6)
         {
             posRick.x += 1;
             angleRick = M_PI / 2;
         }
         break;
-    case Qt::Key_C:
+    case Qt::Key_C: // Cambia entre cámaras
         Camera1 = !Camera1;
-        actualizarCamera(); 
+        actualizarCamera();
         break;
-    case Qt::Key_R:
+    case Qt::Key_R: // Reinicia la posición de Rick y la cámara
         Camera1 = true;
         posRick = glm::vec3(-5, 0, 0);
         fov = fov2;
         iniCamera();
         break;
 
-    default:
+    default: // Ignora otros eventos
         event->ignore();
         break;
     }
