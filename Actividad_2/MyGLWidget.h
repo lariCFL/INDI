@@ -13,7 +13,7 @@ class MyGLWidget : public BL2GLWidget {
   protected:
     void initializeGL( )  override;
     void paintGL( )      override;
-    void setRickPosition(float x, float y, float z);
+    //void setRickPosition(float x, float y, float z);
 
   private:
     float cubPos = 2.5;
@@ -32,5 +32,6 @@ class MyGLWidget : public BL2GLWidget {
 
     // Mouse and keyboard
     void mouseMoveEvent(QMouseEvent *event) override;
+    void KeyPressEvent(QKeyEvent *event) override;
 
   };

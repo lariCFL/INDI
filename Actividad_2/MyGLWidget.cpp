@@ -10,6 +10,14 @@ MyGLWidget::~MyGLWidget()
 {
 }
 
+
+/*
+void MyGLWidget::setRickPosition(float x, float y, float z)
+{
+    posRick = glm::vec3(x, 0, 0);
+}
+*/
+
 void MyGLWidget::initializeGL()
 {
     alcadaVideoCamera = 0.5;
@@ -22,7 +30,7 @@ void MyGLWidget::initializeGL()
     BL2GLWidget::initializeGL();
 
 
-    setRickPosition(-5, 0, 0);
+    posRick = glm::vec3(-5, 0, 0);
     angleVideoCamera *= 180;
     VideoCameraTransform();
 }
@@ -37,11 +45,6 @@ void MyGLWidget::paintGL()
     glBindVertexArray(VAO_Cub);
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
-}
-
-void MyGLWidget::setRickPosition(float x, float y, float z)
-{
-    posRick = glm::vec3(x, y, z);
 }
 
 void MyGLWidget::CubTransform()
@@ -94,19 +97,6 @@ void MyGLWidget::resizeGL(int width, int height)
         fov = fovIni;
 }
 
-/*
-VM=Translate (0.,0.,-d)
-VM= VM*Rotate (θ,1.,0.,0.)
-VM= VM*Rotate(-ψ.,0.,1.,0.)
-VM= VM*Translate(-VRP.x,-VRP.y,-VRP.z)
-viewMatrix(VM)
------
-Atenció a l’ordre!
-ψ angle de gir respecte Y
-θ angle de gir respecte X
-Angles donats en RADIANS
-*/
-
 void MyGLWidget::viewTransform()
 {
     glm::mat4 View(1.0f);
@@ -133,4 +123,24 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
         viewTransform(); // RE-APLICA a matriz de visualização com os novos ângulos
         update();
     }
+}
+
+
+//teclas left and right
+void MyGLWidget::KeyPressEvent(QKeyEvent *event)
+{
+    makeCurrent();
+    switch (event->key()) {
+        case Qt::Key_Left:
+            posRick.x -= 1;
+            break;
+        case Qt::Key_Right:
+            posRick.x += 1;
+            break;
+        default:
+            event->ignore();
+            break;
+    }
+    viewTransform();
+    update();
 }
