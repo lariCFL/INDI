@@ -127,15 +127,15 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 
 
 //teclas left and right
-void MyGLWidget::KeyPressEvent(QKeyEvent *event)
+void MyGLWidget::keyPressEvent(QKeyEvent *event)
 {
     makeCurrent();
     switch (event->key()) {
         case Qt::Key_Left:
-            posRick.x -= 1;
+            if (posRick.x > -5) posRick.x -= 1;
             break;
         case Qt::Key_Right:
-            posRick.x += 1;
+        if (posRick.x < 5) posRick.x += 1;
             break;
         default:
             event->ignore();
