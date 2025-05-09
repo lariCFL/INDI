@@ -15,11 +15,13 @@ void MyGLWidget::initializeGL()
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
 
+    anglePsi = M_PI / 4.0f;
+    angleTheta = M_PI / 4.0f;
+
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
 
-    anglePsi = M_PI / 2.0f;
-    angleTheta = M_PI / 2.0f;
+
     setRickPosition(-5, 0, 0);
     angleVideoCamera *= 180;
     VideoCameraTransform();
@@ -106,11 +108,13 @@ Angles donats en RADIANS
 void MyGLWidget::viewTransform()
 {
     glm::mat4 View(1.0f);
-    View = glm::translate(View, glm::vec3(0, 0, -radiEscena));
+    View = glm::translate(View, glm::vec3(0, 0, -radiEscena * 2));
     View = glm::rotate(View, angleTheta, glm::vec3(1, 0, 0));
     View = glm::rotate(View, -anglePsi, glm::vec3(0, 1, 0));
     View = glm::translate(View, -centreEscena);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
+    DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
+
 }
 
 
