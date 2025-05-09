@@ -164,6 +164,12 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         Camera1 = !Camera1;
         actualizarCamera(); 
         break;
+    case Qt::Key_R:
+        Camera1 = true;
+        posRick = glm::vec3(-5, 0, 0);
+        iniCamera();
+        break;
+
     default:
         event->ignore();
         break;
