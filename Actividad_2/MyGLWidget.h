@@ -32,6 +32,5 @@ class MyGLWidget : public BL2GLWidget {
 
     // Mouse and keyboard
     void mouseMoveEvent(QMouseEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
 
   };

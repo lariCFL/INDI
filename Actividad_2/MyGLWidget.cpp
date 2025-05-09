@@ -18,8 +18,8 @@ void MyGLWidget::initializeGL()
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
 
-    anglePsi = M_PI / 4.0f;
-    angleTheta = M_PI / 4.0f;
+    anglePsi = M_PI / 2.0f;
+    angleTheta = M_PI / 2.0f;
     setRickPosition(-5, 0, 0);
     angleVideoCamera *= 180;
     VideoCameraTransform();
@@ -90,11 +90,24 @@ void MyGLWidget::resizeGL(int width, int height)
         fov = fovIni;
 }
 
+/*
+VM=Translate (0.,0.,-d)
+VM= VM*Rotate (θ,1.,0.,0.)
+VM= VM*Rotate(-ψ.,0.,1.,0.)
+VM= VM*Translate(-VRP.x,-VRP.y,-VRP.z)
+viewMatrix(VM)
+-----
+Atenció a l’ordre!
+ψ angle de gir respecte Y
+θ angle de gir respecte X
+Angles donats en RADIANS
+*/
+
 void MyGLWidget::viewTransform()
 {
     glm::mat4 View(1.0f);
     View = glm::translate(View, glm::vec3(0, 0, -radiEscena));
-    View = glm::rotate(View, -angleTheta, glm::vec3(1, 0, 0));
+    View = glm::rotate(View, angleTheta, glm::vec3(1, 0, 0));
     View = glm::rotate(View, -anglePsi, glm::vec3(0, 1, 0));
     View = glm::translate(View, -centreEscena);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
@@ -110,6 +123,9 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
         anglePsi += (event->y() - yClick) / float(alt);
         xClick = event->x();
         yClick = event->y();
+        DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
+        
+        viewTransform(); // RE-APLICA a matriz de visualização com os novos ângulos
         update();
     }
 }
