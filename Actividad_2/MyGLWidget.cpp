@@ -47,7 +47,7 @@ void MyGLWidget::iniCamera()
 {
     anglePsi = M_PI / 4.0f;
     angleTheta = M_PI / 4.0f;
-
+    actualizarCamera();
     BL2GLWidget::iniCamera();
 }
 
@@ -167,6 +167,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     case Qt::Key_R:
         Camera1 = true;
         posRick = glm::vec3(-5, 0, 0);
+        fov = fov2;
         iniCamera();
         break;
 
