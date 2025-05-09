@@ -132,12 +132,10 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     makeCurrent();
     switch (event->key()) {
         case Qt::Key_Left:
-            if (posRick.x > -5) { posRick.x -= 1; angleRick = 180;}
-            else { posRick.x = -6; angleRick = 90;}
+            if (posRick.x > -6) { posRick.x -= 1; angleRick = (3*M_PI)/2;}
             break;
         case Qt::Key_Right:
-            if (posRick.x < 5) { posRick.x += 1; angleRick = 90; }
-            else { posRick.x = 6; angleRick = 180;}
+            if (posRick.x < 6) { posRick.x += 1; angleRick = M_PI /2; }
             break;
         default:
             event->ignore();
