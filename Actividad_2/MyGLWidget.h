@@ -25,7 +25,7 @@ class MyGLWidget : public BL2GLWidget {
     void viewTransform() override;
     void resizeGL(int width, int height) override;
 
-    //void actualizarCamera();
+    void actualizarCamera();
     bool Camera1;
 
 

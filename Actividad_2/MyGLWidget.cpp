@@ -22,7 +22,7 @@ void MyGLWidget::initializeGL()
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
 
-    Camera1 = false;
+    Camera1 = true;
 
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
@@ -36,13 +36,13 @@ void MyGLWidget::paintGL()
 {
     // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
-
-    viewTransform();
-
     glBindVertexArray(VAO_Cub);
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    viewTransform();
 }
+
 
 // ----------------------------------------
 
@@ -50,23 +50,13 @@ void MyGLWidget::paintGL()
 
 void MyGLWidget::iniCamera()
 {
-    // Define a posição do observador, o ponto de referência e o vetor "up"
-    obs = glm::vec3(16, 5, 0);
-    vrp = glm::vec3(0, 0, 0);
-    up = glm::vec3(0, 1, 0);
-    fov = fovIni; // Campo de visão em perspectiva
-    znear = 1.0f; // Distância do plano de recorte próximo
-    zfar = 30.0f; // Distância do plano de recorte distante
-
     anglePsi = M_PI / 4.0f;
     angleTheta = M_PI / 4.0f;
 
-    // Aplica a transformação de visualização
-    viewTransform();
+    BL2GLWidget::iniCamera();
 }
 
-void MyGLWidget::viewTransform()
-{
+void MyGLWidget::actualizarCamera(){
     if (Camera1)
     {
         obs = glm::vec3(16, 5, 0);
@@ -74,8 +64,21 @@ void MyGLWidget::viewTransform()
         up = glm::vec3(0, 1, 0);
         fov = M_PI / 4.0f;
         znear = 10.0f;
-        zfar = 30;
+    }
+    else
+    {
+        obs = glm::vec3(0, 2.25, -1);
+        vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
+        up = glm::vec3(0, 1, 0);
+        fov = M_PI / 2.0f;
+        znear = 0.1f;
+    }
+}
 
+void MyGLWidget::viewTransform()
+{
+    if (Camera1)
+    {
         glm::mat4 View(1.0f);
         View = glm::translate(View, glm::vec3(0, 0, -radiEscena * 2));
         View = glm::rotate(View, anglePsi, glm::vec3(1, 0, 0));
@@ -85,13 +88,7 @@ void MyGLWidget::viewTransform()
     }
     else
     {
-        obs = glm::vec3(0, 2.25, -1);
-        vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
-        up = glm::vec3(0, 1, 0);
-        fov = M_PI / 2.0f;
-        znear = 0.1f;
-        zfar = 30;
-
+        actualizarCamera();
         glm::mat4 View(1.0f);
         View = glm::lookAt(obs, vrp, up);
         glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
@@ -153,14 +150,14 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     makeCurrent();
     switch (event->key())
     {
-    case Qt::Key_Left:
+    case Qt::Key_Down:
         if (posRick.x > -6)
         {
             posRick.x -= 1;
             angleRick = (3 * M_PI) / 2;
         }
         break;
-    case Qt::Key_Right:
+    case Qt::Key_Up:
         if (posRick.x < 6)
         {
             posRick.x += 1;
@@ -169,12 +166,12 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_C:
         Camera1 != Camera1;
-        DEBUG(Camera1);
+      //  DEBUG(Camera1);
         break;
     default:
         event->ignore();
         break;
     }
-    // viewTransform();
+    viewTransform();
     update();
 }
