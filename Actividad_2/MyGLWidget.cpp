@@ -73,6 +73,7 @@ void MyGLWidget::actualizarCamera(){
         fov = M_PI / 2.0f;
         znear = 0.1f;
     }
+    BL2GLWidget::projectTransform();
 }
 
 void MyGLWidget::viewTransform()
@@ -165,7 +166,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         }
         break;
     case Qt::Key_C:
-        Camera1 != Camera1;
+        Camera1 = !Camera1;
       //  DEBUG(Camera1);
         break;
     default:
