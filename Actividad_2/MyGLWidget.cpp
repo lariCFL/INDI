@@ -10,13 +10,6 @@ MyGLWidget::~MyGLWidget()
 {
 }
 
-/*
-void MyGLWidget::setRickPosition(float x, float y, float z)
-{
-    posRick = glm::vec3(x, 0, 0);
-}
-*/
-
 void MyGLWidget::initializeGL()
 {
     alcadaVideoCamera = 0.5;
@@ -26,6 +19,8 @@ void MyGLWidget::initializeGL()
 
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
+
+    //fov2 = fov;
 
     posRick = glm::vec3(-5, 0, 0);
     angleVideoCamera *= 180;
@@ -59,17 +54,15 @@ void MyGLWidget::iniCamera()
 void MyGLWidget::actualizarCamera(){
     if (Camera1)
     {
-        obs = glm::vec3(16, 5, 0);
+        obs = glm::vec3(10, 5, 0);
         vrp = glm::vec3(0, 0, 0);
-        up = glm::vec3(0, 1, 0);
-        fov = M_PI / 4.0f;
+        fov = fov2;
         znear = 10.0f;
     }
     else
     {
         obs = glm::vec3(0, 2.25, -1);
         vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
-        up = glm::vec3(0, 1, 0);
         fov = M_PI / 2.0f;
         znear = 0.1f;
     }
@@ -104,6 +97,8 @@ void MyGLWidget::resizeGL(int width, int height)
         fov = 2.0f * atan(tan(fovIni / 2.0f) / ra);
     else
         fov = fovIni;
+
+    fov2 = fov;
 }
 
 // ----------------------------------------
@@ -167,7 +162,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         break;
     case Qt::Key_C:
         Camera1 = !Camera1;
-      //  DEBUG(Camera1);
+        actualizarCamera(); 
         break;
     default:
         event->ignore();

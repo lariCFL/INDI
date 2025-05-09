@@ -27,10 +27,10 @@ class MyGLWidget : public BL2GLWidget {
 
     void actualizarCamera();
     bool Camera1;
+    float fov2;
 
 
     // Modelos
-    float fovIni = float(M_PI)/4.0f;
     float anglePsi;
     float angleTheta;
 
