@@ -32,6 +32,8 @@ void MyGLWidget::paintGL()
     // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
 
+    viewTransform();
+
     glBindVertexArray(VAO_Cub);
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -109,12 +111,11 @@ void MyGLWidget::viewTransform()
 {
     glm::mat4 View(1.0f);
     View = glm::translate(View, glm::vec3(0, 0, -radiEscena * 2));
-    View = glm::rotate(View, angleTheta, glm::vec3(1, 0, 0));
-    View = glm::rotate(View, -anglePsi, glm::vec3(0, 1, 0));
+    View = glm::rotate(View, anglePsi, aglm::vec3(0, 1, 0));
+    View = glm::rotate(View, -angleTheta, glm::vec3(1, 0, 0));
     View = glm::translate(View, -centreEscena);
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, &View[0][0]);
-    DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
-
+    
 }
 
 
