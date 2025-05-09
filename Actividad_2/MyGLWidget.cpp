@@ -25,6 +25,7 @@ void MyGLWidget::initializeGL()
 
     anglePsi = M_PI / 4.0f;
     angleTheta = M_PI / 4.0f;
+    AltCam = false;
 
     // Chama a inicialização de BL2GLWidget
     BL2GLWidget::initializeGL();
@@ -40,7 +41,7 @@ void MyGLWidget::paintGL()
     // Chama a implementação de BL2GLWidget
     BL2GLWidget::paintGL();
 
-    viewTransform();
+    if (!AltCam) viewTransform();
 
     glBindVertexArray(VAO_Cub);
     CubTransform();
@@ -65,6 +66,12 @@ void MyGLWidget::VideoCameraTransform()
     TG = glm::translate(TG, -centreCaixaVideoCamera);
 
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+}
+
+void MyGLWidget::actCam(){
+    obs = glm::vec3(posRick.x, posRick.y + 2.5, posRick.z - 2);
+    vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
+    up = glm::vec3(0, 1, 0);
 }
 
 // ----------------------------------------
@@ -118,7 +125,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
         anglePsi += (event->y() - yClick) / float(alt);
         xClick = event->x();
         yClick = event->y();
-        DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
+       // DEBUG("angleTheta: " << angleTheta << " anglePsi: " << anglePsi);
         
         viewTransform(); // RE-APLICA a matriz de visualização com os novos ângulos
         update();

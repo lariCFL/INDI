@@ -25,6 +25,10 @@ class MyGLWidget : public BL2GLWidget {
     void viewTransform() override;
     void resizeGL(int width, int height) override;
 
+    void actCam();
+    bool AltCam;
+
+
     // Modelos
     float fovIni = float(M_PI)/4.0f;
     float anglePsi;
