@@ -94,9 +94,9 @@ void MyGLWidget::resizeGL(int width, int height)
     BL2GLWidget::resizeGL(width, height);
     // Ajusta o FOV vertical se a janela for mais alta do que larga
     if (ra < 1.0f)
-        fov = 2.0f * atan(tan(fovIni / 2.0f) / ra);
+        fov = 2.0f * atan(tan(M_PI/4.0f / 2.0f) / ra);
     else
-        fov = fovIni;
+        fov = M_PI/4.0f;
 
     fov2 = fov;
 }
