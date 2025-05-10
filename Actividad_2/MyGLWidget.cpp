@@ -16,6 +16,10 @@ void MyGLWidget::initializeGL()
 {
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
+    cubPos = 2.5;
+    cubSizeX = 0.5;
+    cubSizeZ = 3;
+
 
     Camera1 = true;
 
@@ -29,7 +33,22 @@ void MyGLWidget::initializeGL()
 // Renderiza la escena
 void MyGLWidget::paintGL()
 {
+    cubPos = 2.5;
+    cubSizeX = 0.5;
+    cubSizeZ = 3;
+
     BL2GLWidget::paintGL();
+
+    cubPos *= -1;
+
+    glBindVertexArray(VAO_Cub);
+    CubTransform();
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+
+    cubPos = 0;
+    cubSizeX = 0.25;
+    cubSizeZ = 2;
+
     glBindVertexArray(VAO_Cub);
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -104,9 +123,9 @@ void MyGLWidget::CubTransform()
 {
     glm::mat4 TG(1.0f);
     TG = glm::translate(TG, glm::vec3(0, 0, cubPos));
-    TG = glm::scale(TG, glm::vec3(0.5, 2, 3));
+    TG = glm::scale(TG, glm::vec3(cubSizeX, 2, cubSizeZ));
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
-    cubPos *= -1;
+
 }
 
 // Aplica la transformación a la cámara de video

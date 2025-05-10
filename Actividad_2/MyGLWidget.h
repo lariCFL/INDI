@@ -35,5 +35,6 @@ class MyGLWidget : public BL2GLWidget {
     void keyPressEvent(QKeyEvent *event) override;
 
     // Otros
-    float cubPos = 2.5;
+    float cubPos;
+    float cubSizeX, cubSizeZ;
 };
