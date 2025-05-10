@@ -1,49 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Declaração XML padrão com codificação UTF-8 -->
 <ui version="4.0">
- <!-- Versão do formato UI do Qt Designer sendo utilizada -->
- 
  <class>MyForm</class>
- <!-- Nome da classe principal do formulário -->
- 
- <!-- ============================================== -->
- <!-- SEÇÃO PRINCIPAL DO WIDGET (JANELA) -->
- <!-- ============================================== -->
  <widget class="QWidget" name="MyForm">
-  <!-- Widget base da aplicação, herda de QWidget -->
-  
-  <!-- Configurações geométricas da janela principal -->
   <property name="geometry">
    <rect>
-    <x>0</x>  <!-- Posição X no monitor -->
-    <y>0</y>  <!-- Posição Y no monitor -->
-    <width>819</width>  <!-- Largura da janela -->
-    <height>726</height> <!-- Altura da janela -->
+    <x>0</x>
+    <y>0</y>
+    <width>819</width>
+    <height>726</height>
    </rect>
   </property>
-  
-  <!-- Título da janela que aparece na barra de título -->
   <property name="windowTitle">
-   <string>IDI-Lab</string> <!-- Título "IDI-Lab" -->
+   <string>IDI-Lab</string>
   </property>
   
-  <!-- ============================================== -->
-  <!-- LAYOUT PRINCIPAL (HORIZONTAL) -->
-  <!-- ============================================== -->
   <layout class="QHBoxLayout" name="horizontalLayout">
-   <!-- Layout horizontal divide a janela em duas áreas -->
    
-   <!-- ============================================== -->
-   <!-- PRIMEIRO ITEM: WIDGET OPENGL (ÁREA DE VISUALIZAÇÃO 3D) -->
-   <!-- ============================================== -->
+   <!-- Área OpenGL -->
    <item>
     <widget class="MyGLWidget" name="widget" native="true">
-     <!-- Widget personalizado para renderização OpenGL -->
-     
-     <!-- Política de redimensionamento do widget -->
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <!-- Expande tanto horizontal quanto verticalmente -->
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -51,303 +28,247 @@
     </widget>
    </item>
    
-   <!-- ============================================== -->
-   <!-- SEGUNDO ITEM: PAINEL DE CONTROLE (VERTICAL) -->
-   <!-- ============================================== -->
+   <!-- Painel de Controle -->
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <!-- Layout vertical para os controles -->
-     
-     <!-- Adicionando tamanho máximo ao layout -->
+    <widget class="QWidget" name="controlPanel">
      <property name="maximumSize">
       <size>
-       <width>20</width> <!-- Largura máxima de 20 -->
-       <height>16777215</height> <!-- Altura máxima padrão (ilimitada) -->
+       <width>20</width>
+       <height>16777215</height>
       </size>
      </property>
-     
-     <!-- Margem esquerda do layout -->
-     <property name="leftMargin">
-      <number>0</number> <!-- Sem margem esquerda -->
-     </property>
-     
-     <!-- ============================================== -->
-     <!-- SEÇÃO DE CONTROLE DA CÂMERA -->
-     <!-- ============================================== -->
-     <item>
-      <layout class="QGridLayout" name="gridLayout">
-       <!-- Layout em grade para organizar os controles -->
-       
-       <!-- Título da seção de câmera -->
-       <item row="0" column="0" colspan="2">
-        <widget class="QLabel" name="label">
-         <property name="text">
-          <string>Camera</string> <!-- Texto "Camera" -->
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignmentFlag::AlignCenter</set> <!-- Centralizado -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Botão para mover câmera para baixo -->
-       <item row="5" column="0" colspan="2">
-        <widget class="QPushButton" name="BtDown">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>  <!-- Largura flexível -->
-           <height>25</height> <!-- Altura fixa de 25px -->
-          </size>
-         </property>
-         <property name="text">
-          <string>↓</string> <!-- Símbolo de seta para baixo -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Botão para mover câmera para cima -->
-       <item row="1" column="0" colspan="2">
-        <widget class="QPushButton" name="BtUp">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>↑</string> <!-- Símbolo de seta para cima -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Botão para mover câmera para a direita -->
-       <item row="4" column="1">
-        <widget class="QPushButton" name="BtRight">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <!-- Tamanho fixo (não redimensionável) -->
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>30</width>  <!-- Largura fixa de 30px -->
-           <height>25</height> <!-- Altura fixa de 25px -->
-          </size>
-         </property>
-         <property name="text">
-          <string>→</string> <!-- Símbolo de seta para direita -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Botão para mover câmera para a esquerda -->
-       <item row="4" column="0">
-        <widget class="QPushButton" name="BtLeft">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>25</height>
-          </size>
-         </property>
-         <property name="baseSize">
-          <size>
-           <width>8</width>
-           <height>8</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>←</string> <!-- Símbolo de seta para esquerda -->
-         </property>
-         <property name="iconSize">
-          <size>
-           <width>8</width>
-           <height>16</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Opção de câmera principal -->
-       <item row="8" column="0" colspan="2">
-        <widget class="QRadioButton" name="RBCam1">
-         <property name="text">
-          <string>Principal</string> <!-- Rótulo "Principal" -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Opção de câmera alternativa -->
-       <item row="7" column="0" colspan="2">
-        <widget class="QRadioButton" name="RBCam2">
-         <property name="text">
-          <string>Alternativa</string> <!-- Rótulo "Alternativa" -->
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     
-     <!-- ============================================== -->
-     <!-- SEÇÃO DE CONTROLES DESLIZANTES (SLIDERS) -->
-     <!-- ============================================== -->
-     <item>
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <!-- Layout vertical para os sliders -->
-       
-       <!-- Espaçador vertical -->
-       <item>
-        <spacer name="verticalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum> <!-- Orientação vertical -->
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Policy::Minimum</enum> <!-- Tamanho mínimo -->
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       
-       <!-- Rótulo para o slider do Rick -->
-       <item>
-        <widget class="QLabel" name="label_2">
-         <property name="text">
-          <string>Posicion Rick</string> <!-- Texto "Posicion Rick" -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Slider horizontal para controlar a posição do Rick -->
-       <item>
-        <widget class="QSlider" name="horSliRick">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum> <!-- Orientação horizontal -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Espaçador vertical -->
-       <item>
-        <spacer name="verticalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Orientation::Vertical</enum>
-         </property>
-         <property name="sizeType">
-          <enum>QSizePolicy::Policy::Minimum</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       
-       <!-- Rótulo para o slider da porta -->
-       <item>
-        <widget class="QLabel" name="label_3">
-         <property name="text">
-          <string>Posicion Puerta</string> <!-- Texto "Posicion Puerta" -->
-         </property>
-        </widget>
-       </item>
-       
-       <!-- Slider horizontal para controlar a posição da porta -->
-       <item>
-        <widget class="QSlider" name="horSliP">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     
-     <!-- Espaçador vertical para empurrar o botão para baixo -->
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Orientation::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     
-     <!-- ============================================== -->
-     <!-- BOTÃO DE SAÍDA -->
-     <!-- ============================================== -->
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&amp;Sortir</string> <!-- Texto "Sortir" com atalho Alt+S -->
-       </property>
-      </widget>
-     </item>
-    </layout>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="contentsMargins">
+       <rect>
+        <left>0</left>
+        <top>0</top>
+        <right>0</right>
+        <bottom>0</bottom>
+       </rect>
+      </property>
+      
+      <!-- Seção de Câmera -->
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Camera</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="2">
+         <widget class="QPushButton" name="BtDown">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>↓</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QPushButton" name="BtUp">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>↑</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="BtRight">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>→</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="BtLeft">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>←</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="2">
+         <widget class="QRadioButton" name="RBCam1">
+          <property name="text">
+           <string>Principal</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QRadioButton" name="RBCam2">
+          <property name="text">
+           <string>Alternativa</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      
+      <!-- Seção de Sliders -->
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <item>
+         <spacer name="verticalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Posicion Rick</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="horSliRick">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="verticalSpacer_3">
+          <property name="orientation">
+           <enum>Qt::Orientation::Vertical</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Minimum</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>40</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Posicion Puerta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="horSliP">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Orientation::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text">
+         <string>&amp;Sortir</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
- 
- <!-- ============================================== -->
- <!-- DEFINIÇÃO DE WIDGETS PERSONALIZADOS -->
- <!-- ============================================== -->
+
  <customwidgets>
   <customwidget>
-   <class>MyGLWidget</class> <!-- Nome da classe -->
-   <extends>QWidget</extends> <!-- Classe base -->
-   <header>MyGLWidget.h</header> <!-- Arquivo de cabeçalho -->
-   <container>1</container> <!-- É um widget container -->
+   <class>MyGLWidget</class>
+   <extends>QWidget</extends>
+   <header>MyGLWidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  
- <!-- Seção de recursos (vazia neste caso) -->
  <resources/>
  
- <!-- ============================================== -->
- <!-- CONEXÕES DE SINAIS E SLOTS -->
- <!-- ============================================== -->
  <connections>
   <connection>
-   <sender>pushButton</sender> <!-- Emissor do sinal -->
-   <signal>clicked()</signal> <!-- Sinal a ser emitido -->
-   <receiver>MyForm</receiver> <!-- Receptor do sinal -->
-   <slot>close()</slot> <!-- Slot a ser chamado -->
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>MyForm</receiver>
+   <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>796</x>
