@@ -6,35 +6,39 @@
 #define CHECK() printOglError(__FILE__, __LINE__, __FUNCTION__)
 #define DEBUG(text) std::cout << __FILE__ << " " << __LINE__ << " " << __FUNCTION__ << ":" << text << std::endl;
 
-// Destructor de la clase
 MyGLWidget::~MyGLWidget()
 {
 }
 
-// Inicializa los parámetros de OpenGL y la cámara
+// ------------------------------------------------------------------------
+// Inicialización OpenGL
+// ------------------------------------------------------------------------
 void MyGLWidget::initializeGL()
 {
+    // Inicializa os parâmetros de OpenGL e a câmera
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
     cubPos = 2.5;
     cubSizeX = 0.5;
     cubSizeZ = 3;
 
-
     Camera1 = true;
 
     BL2GLWidget::initializeGL();
 
     posRick = glm::vec3(-5, 0, 0);
+    emit(posRickSlider(posRick.x));
     angleVideoCamera *= 180;
     VideoCameraTransform();
 }
 
-// Renderiza la escena
+// ------------------------------------------------------------------------
+// Renderizado de la escena
+// ------------------------------------------------------------------------
 void MyGLWidget::paintGL()
 {
-
-    glUniform1i(usaColorUniformLoc, false);  // usa cor do VBO
+    // Renderiza a cena
+    glUniform1i(usaColorUniformLoc, false);  // Usa cor do VBO
 
     cubPos = 2.5;
     cubSizeX = 0.5;
@@ -48,10 +52,8 @@ void MyGLWidget::paintGL()
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    glUniform3f(colLoc, 1.0, 0.0, 0.0);  // vermelho
-    glUniform1i(usaColorUniformLoc, true);  // usa cor do VBO
-
-
+    glUniform3f(colLoc, 1.0, 0.0, 0.0);  // Vermelho
+    glUniform1i(usaColorUniformLoc, true);  // Usa cor do VBO
 
     cubSizeX = 0.25;
     cubSizeZ = 2;
@@ -60,7 +62,10 @@ void MyGLWidget::paintGL()
     {
         cubPos = 2;
     }
-    else { cubPos = 0; }
+    else
+    {
+        cubPos = 0;
+    }
 
     glBindVertexArray(VAO_Cub);
     CubTransform();
@@ -69,28 +74,31 @@ void MyGLWidget::paintGL()
     viewTransform();
 }
 
-// Carga los shaders y crea los buffers para los modelos
+// ------------------------------------------------------------------------
+// Carga de shaders
+// ------------------------------------------------------------------------
 void MyGLWidget::carregaShaders()
 {
+    // Carrega os shaders e cria os buffers para os modelos
     BL2GLWidget::carregaShaders();
     colLoc = glGetUniformLocation(program->programId(), "col");
     usaColorUniformLoc = glGetUniformLocation(program->programId(), "usaColorUniform");
-
 }
 
-// ------------ Transformaciones
+// ------------------------------------------------------------------------
+// Sección de transformaciones
+// ------------------------------------------------------------------------
 
-// Aplica la transformación al cubo
+// Transformación del cubo
 void MyGLWidget::CubTransform()
 {
     glm::mat4 TG(1.0f);
     TG = glm::translate(TG, glm::vec3(0, 0, cubPos));
     TG = glm::scale(TG, glm::vec3(cubSizeX, 2, cubSizeZ));
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
-
 }
 
-// Aplica la transformación a la cámara de video
+// Transformación de la cámara de video
 void MyGLWidget::VideoCameraTransform()
 {
     glm::mat4 TG(1.0f);
@@ -102,9 +110,11 @@ void MyGLWidget::VideoCameraTransform()
     glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
 }
 
-// ------------ Control Camera
+// ------------------------------------------------------------------------
+// Sección de control de cámara
+// ------------------------------------------------------------------------
 
-// Inicializa los parámetros de la cámara
+// Inicialización de cámara
 void MyGLWidget::iniCamera()
 {
     anglePsi = M_PI / 4.0f;
@@ -113,9 +123,11 @@ void MyGLWidget::iniCamera()
     BL2GLWidget::iniCamera();
 }
 
-// Actualiza los parámetros de la cámara dependiendo de Camera1
+// Actualización de parámetros de cámara
 void MyGLWidget::actualizarCamera()
 {
+    emit(isCamera1(Camera1));
+    emit(isCamera2(!Camera1));
     if (Camera1) // Configuración para la cámara principal
     {
         obs = glm::vec3(10, 5, 0);
@@ -133,7 +145,7 @@ void MyGLWidget::actualizarCamera()
     BL2GLWidget::projectTransform();
 }
 
-// Aplica la transformación de vista según la cámara activa
+// Transformación de vista
 void MyGLWidget::viewTransform()
 {
     if (Camera1) // Transformación para la cámara principal
@@ -154,7 +166,7 @@ void MyGLWidget::viewTransform()
     }
 }
 
-// Ajusta el campo de visión al cambiar el tamaño de la ventana
+// Ajuste de tamaño de ventana
 void MyGLWidget::resizeGL(int width, int height)
 {
     BL2GLWidget::resizeGL(width, height);
@@ -166,9 +178,11 @@ void MyGLWidget::resizeGL(int width, int height)
     fov2 = fov;
 }
 
-// ------------ Interacciones
+// ------------------------------------------------------------------------
+// Sección de interacciones
+// ------------------------------------------------------------------------
 
-// Maneja el movimiento del ratón para rotar la cámara
+// Manejo de movimiento de ratón
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
     if (DoingInteractive == ROTATE)
@@ -184,7 +198,7 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
     }
 }
 
-// Maneja los eventos de teclado
+// Manejo de eventos de teclado
 void MyGLWidget::keyPressEvent(QKeyEvent *event)
 {
     makeCurrent();
@@ -195,6 +209,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         {
             posRick.x -= 1;
             angleRick = (3 * M_PI) / 2;
+            emit(posRickSlider(posRick.x));
         }
         break;
     case Qt::Key_Up: // Mueve a Rick hacia arriba
@@ -202,11 +217,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         {
             posRick.x += 1;
             angleRick = M_PI / 2;
+            emit(posRickSlider(posRick.x));
         }
         break;
     case Qt::Key_C: // Cambia entre cámaras
         Camera1 = !Camera1;
-        actualizarCamera();
+        if (Camera1)
+            actualizarCamera();
         break;
     case Qt::Key_R: // Reinicia la posición de Rick y la cámara
         Camera1 = true;
@@ -220,5 +237,46 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         break;
     }
     viewTransform();
+    update();
+}
+
+// ------------------------------------------------------------------------
+// Sección de interfaces (slots)
+// ------------------------------------------------------------------------
+
+// Cambio a cámara 1
+void MyGLWidget::Cam1(bool cam)
+{
+    Camera1 = true;
+    actualizarCamera();
+    viewTransform();
+    paintGL();
+    update();
+}
+
+// Cambio a cámara 2
+void MyGLWidget::Cam2(bool cam)
+{
+    Camera1 = false;
+    actualizarCamera();
+    viewTransform();
+    paintGL();
+    update();
+}
+
+// Movimiento de Rick
+void MyGLWidget::MoveRick(int value)
+{
+    if (posRick.x < value)
+    {
+        angleRick = M_PI / 2;
+    }
+    else if (posRick.x > value)
+    {
+        angleRick = (3 * M_PI) / 2;
+    }
+    posRick.x = value;
+    viewTransform();
+    paintGL();
     update();
 }
