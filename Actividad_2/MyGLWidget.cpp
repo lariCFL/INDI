@@ -244,7 +244,7 @@ void MyGLWidget::Cam2(bool cam)
 
 void MyGLWidget::MoveRick(int value)
 {
-    if (posRick.x > value){
+    if (posRick.x < value){
         angleRick = M_PI / 2;
     }
     else{
