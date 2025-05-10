@@ -140,7 +140,7 @@ void MyGLWidget::actualizarCamera()
         obs = glm::vec3(0, 2.25, -1);
         vrp = glm::vec3(posRick.x, posRick.y, posRick.z);
         fov = M_PI / 2.0f;
-        znear = 0.1f;
+        znear = 0.25f;
     }
     BL2GLWidget::projectTransform();
 }
