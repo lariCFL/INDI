@@ -25,6 +25,7 @@ void MyGLWidget::initializeGL()
     BL2GLWidget::initializeGL();
 
     posRick = glm::vec3(-5, 0, 0);
+    emit(posRickSlider(posRick.x));
     angleVideoCamera *= 180;
     VideoCameraTransform();
 }
@@ -243,6 +244,12 @@ void MyGLWidget::Cam2(bool cam)
 
 void MyGLWidget::MoveRick(int value)
 {
+    if (posRick.x > value){
+        angleRick = M_PI / 2;
+    }
+    else{
+        angleRick = (3 * M_PI) / 2;
+    }
     posRick.x = value;
     viewTransform();
     paintGL();
