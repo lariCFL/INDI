@@ -230,10 +230,22 @@
       <slot>Cam1(bool)</slot>
     </connection>
     <connection>
+      <sender>widget</sender>
+      <signal>isCamera1(bool)</signal>
+      <receiver>RBCam1</receiver>
+      <slot>setChecked(bool)</slot>
+    </connection>
+    <connection>
       <sender>RBCam2</sender>
       <signal>clicked(bool)</signal>
       <receiver>widget</receiver>
       <slot>Cam2(bool)</slot>
+    </connection>
+    <connection>
+      <sender>widget</sender>
+      <signal>isCamera2(bool)</signal>
+      <receiver>RBCam2</receiver>
+      <slot>setChecked(bool)</slot>
     </connection>
   </connections>
 </ui>

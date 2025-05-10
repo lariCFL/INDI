@@ -9,13 +9,11 @@
 // Destructor de la clase
 MyGLWidget::~MyGLWidget()
 {
-    DEBUG("Destructor called");
 }
 
 // Inicializa los parámetros de OpenGL y la cámara
 void MyGLWidget::initializeGL()
 {
-    DEBUG("Initializing GL");
     alcadaVideoCamera = 0.5;
     alcadaRick = 1.5;
     cubPos = 2.5;
@@ -34,7 +32,6 @@ void MyGLWidget::initializeGL()
 // Renderiza la escena
 void MyGLWidget::paintGL()
 {
-    DEBUG("Rendering scene");
     glUniform1i(usaColorUniformLoc, false);  // usa cor do VBO
 
     cubPos = 2.5;
@@ -71,7 +68,6 @@ void MyGLWidget::paintGL()
 // Carga los shaders y crea los buffers para los modelos
 void MyGLWidget::carregaShaders()
 {
-    DEBUG("Loading shaders");
     BL2GLWidget::carregaShaders();
     colLoc = glGetUniformLocation(program->programId(), "col");
     usaColorUniformLoc = glGetUniformLocation(program->programId(), "usaColorUniform");
@@ -82,7 +78,6 @@ void MyGLWidget::carregaShaders()
 // Aplica la transformación al cubo
 void MyGLWidget::CubTransform()
 {
-    DEBUG("Applying cube transformation");
     glm::mat4 TG(1.0f);
     TG = glm::translate(TG, glm::vec3(0, 0, cubPos));
     TG = glm::scale(TG, glm::vec3(cubSizeX, 2, cubSizeZ));
@@ -92,7 +87,6 @@ void MyGLWidget::CubTransform()
 // Aplica la transformación a la cámara de video
 void MyGLWidget::VideoCameraTransform()
 {
-    DEBUG("Applying video camera transformation");
     glm::mat4 TG(1.0f);
 
     TG = glm::translate(TG, glm::vec3(0, 2.25f, -1.0f));
@@ -107,7 +101,6 @@ void MyGLWidget::VideoCameraTransform()
 // Inicializa los parámetros de la cámara
 void MyGLWidget::iniCamera()
 {
-    DEBUG("Initializing camera");
     anglePsi = M_PI / 4.0f;
     angleTheta = M_PI / 4.0f;
     actualizarCamera();
@@ -117,6 +110,8 @@ void MyGLWidget::iniCamera()
 // Actualiza los parámetros de la cámara dependiendo de Camera1
 void MyGLWidget::actualizarCamera()
 {
+    emit(isCamera1(Camera1));
+    emit(isCamera2(!Camera1));
     if (Camera1) // Configuración para la cámara principal
     {
         obs = glm::vec3(10, 5, 0);
@@ -137,7 +132,6 @@ void MyGLWidget::actualizarCamera()
 // Aplica la transformación de vista según la cámara activa
 void MyGLWidget::viewTransform()
 {
-    DEBUG("Applying view transformation");
     if (Camera1) // Transformación para la cámara principal
     {
         glm::mat4 View(1.0f);
@@ -159,7 +153,6 @@ void MyGLWidget::viewTransform()
 // Ajusta el campo de visión al cambiar el tamaño de la ventana
 void MyGLWidget::resizeGL(int width, int height)
 {
-    DEBUG("Resizing GL");
     BL2GLWidget::resizeGL(width, height);
     if (ra < 1.0f)
         fov = 2.0f * atan(tan(M_PI / 4.0f / 2.0f) / ra);
@@ -174,7 +167,6 @@ void MyGLWidget::resizeGL(int width, int height)
 // Maneja el movimiento del ratón para rotar la cámara
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    DEBUG("Mouse move event");
     if (DoingInteractive == ROTATE)
     {
         if (Camera1) // Rotación solo para la cámara principal
@@ -191,7 +183,6 @@ void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
 // Maneja los eventos de teclado
 void MyGLWidget::keyPressEvent(QKeyEvent *event)
 {
-    DEBUG("Key press event");
     makeCurrent();
     switch (event->key())
     {
@@ -232,20 +223,16 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
 // ------------ Interfaces
 void MyGLWidget::Cam1(bool cam)
 {
-    DEBUG("Cam1 called with: " << cam);
     Camera1 = true;
     actualizarCamera();
     viewTransform();
-   // paintGL();
     update();
 }
 
 void MyGLWidget::Cam2(bool cam)
 {
-    DEBUG("Cam2 called with: " << cam);
     Camera1 = false;
     actualizarCamera();
     viewTransform();
-    // paintGL();
     update();
 }

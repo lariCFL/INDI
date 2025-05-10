@@ -42,7 +42,8 @@ class MyGLWidget : public BL2GLWidget {
     GLuint colLoc, usaColorUniformLoc;
 
 signals:
-    void isCamera1(bool camera);
+    void isCamera1(bool cam);
+    void isCamera2(bool cam);
 
 public slots:
     void Cam1(bool cam);
