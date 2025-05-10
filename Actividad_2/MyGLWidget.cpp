@@ -225,10 +225,13 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
 }
 
 // ------------ Interfaces
-void MyGLWidget::updateCamera(bool camr)
+void MyGLWidget::updateCamera(bool cam)
 {
-    if cam Camera1 = true;
+    DEBUG(cam);
+    if (cam) Camera1 = true;
     else Camera1 = false;
     actualizarCamera();
+    viewTransform();
+    paintGL();
     update();
 }
