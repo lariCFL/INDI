@@ -48,7 +48,7 @@ void MyGLWidget::paintGL()
     cubSizeX = 0.25;
     cubSizeZ = 2;
 
-    if (posRick.x >= 2 && posRick.x <= -2)
+    if (posRick.x <= 2 && posRick.x >= -2)
     {
         cubPos = 2;
     }
