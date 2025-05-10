@@ -247,7 +247,7 @@ void MyGLWidget::MoveRick(int value)
     if (posRick.x < value){
         angleRick = M_PI / 2;
     }
-    else{
+    else if (posRick.x > value){
         angleRick = (3 * M_PI) / 2;
     }
     posRick.x = value;

@@ -155,9 +155,6 @@
           <property name="maximum">
            <number>6</number>
           </property>
-          <property name="value">
-           <number>-6</number>
-          </property>
 
 
          </widget>
