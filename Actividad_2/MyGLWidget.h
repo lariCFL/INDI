@@ -41,5 +41,5 @@ class MyGLWidget : public BL2GLWidget {
 
 
     void carregaShaders() override;
-    GLuint colLoc;
+    GLuint colLoc, usaColorUniformLoc;
 };

@@ -33,6 +33,9 @@ void MyGLWidget::initializeGL()
 // Renderiza la escena
 void MyGLWidget::paintGL()
 {
+
+    glUniform1i(usaColorUniformLoc, false);  // usa cor do VBO
+
     cubPos = 2.5;
     cubSizeX = 0.5;
     cubSizeZ = 3;
@@ -46,6 +49,8 @@ void MyGLWidget::paintGL()
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     glUniform3f(colLoc, 1.0, 0.0, 0.0);  // vermelho
+    glUniform1i(usaColorUniformLoc, true);  // usa cor do VBO
+
 
 
     cubSizeX = 0.25;
@@ -69,6 +74,7 @@ void MyGLWidget::carregaShaders()
 {
     BL2GLWidget::carregaShaders();
     colLoc = glGetUniformLocation(program->programId(), "col");
+    usaColorUniformLoc = glGetUniformLocation(program->programId(), "usaColorUniform");
 
 }
 
