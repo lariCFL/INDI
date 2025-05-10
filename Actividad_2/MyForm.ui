@@ -205,23 +205,29 @@
  </customwidgets>
 
  <!-- SECCIONES VACÍAS (RESERVADAS PARA FUTURO USO) -->
-<resources/>
- <connections>
-  <connection>
-   <sender>pushButton</sender>
-   <signal>clicked()</signal>
-   <receiver>MyForm</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>796</x>
-     <y>596</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>839</x>
-     <y>529</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+  <resources/>
+  <connections>
+    <connection>
+      <sender>pushButton</sender>
+      <signal>clicked()</signal>
+      <receiver>MyForm</receiver>
+      <slot>close()</slot>
+      <hints>
+        <hint type="sourcelabel">
+          <x>796</x>
+          <y>596</y>
+        </hint>
+        <hint type="destinationlabel">
+          <x>839</x>
+          <y>529</y>
+        </hint>
+      </hints>
+    </connection>
+    <connection>
+      <sender>MyGLWidget</sender>
+      <signal>isCamera1(bool)</signal>
+      <receiver>RBCam1</receiver>
+      <slot>setChecked(bool)</slot>
+    </connection>
+  </connections>
 </ui>

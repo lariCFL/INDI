@@ -37,9 +37,11 @@ class MyGLWidget : public BL2GLWidget {
     // Otros
     float cubPos;
     float cubSizeX, cubSizeZ;
-
-
-
+    
     void carregaShaders() override;
     GLuint colLoc, usaColorUniformLoc;
+
+
+public slots:
+    bool isCamera1() const { return Camera1; }
 };
