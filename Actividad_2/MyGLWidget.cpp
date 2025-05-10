@@ -116,6 +116,7 @@ void MyGLWidget::iniCamera()
 // Actualiza los parámetros de la cámara dependiendo de Camera1
 void MyGLWidget::actualizarCamera()
 {
+    emit isCamera1(Camera1);
     if (Camera1) // Configuración para la cámara principal
     {
         obs = glm::vec3(10, 5, 0);
