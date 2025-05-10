@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <!-- SECCIÓN PRINCIPAL DEL FORMULARIO -->
  <class>MyForm</class>
  <widget class="QWidget" name="MyForm">
   <property name="geometry">
@@ -13,7 +14,11 @@
   <property name="windowTitle">
    <string>IDI-Lab</string>
   </property>
+
+  <!-- LAYOUT HORIZONTAL PRINCIPAL -->
   <layout class="QHBoxLayout" name="horizontalLayout">
+   
+   <!-- SECCIÓN DEL WIDGET DE OPENGL -->
    <item>
     <widget class="MyGLWidget" name="widget" native="true">
      <property name="sizePolicy">
@@ -24,38 +29,172 @@
      </property>
     </widget>
    </item>
+   
+   <!-- SECCIÓN DEL PANEL DE CONTROL -->
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <spacer name="verticalSpacer">
-       <property name="orientation">
-        <enum>Qt::Vertical</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>20</width>
-         <height>40</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="text">
-        <string>&amp;Sortir</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="controlPanel" native="true">
+     <!-- Configuración de tamaño del panel -->
+     <property name="minimumSize">
+      <size>
+       <width>100</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>110</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     
+     <!-- LAYOUT VERTICAL DEL PANEL -->
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="leftMargin">
+       <number>1</number>
+      </property>
+      
+      <!-- SUBSECCIÓN: CONTROLES DE CÁMARA -->
+      <item>
+       <layout class="QGridLayout" name="gridLayout">
+        <!-- Título de la sección -->
+        <item row="0" column="0" colspan="2">
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Camera</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+        
+        <!-- Botones de movimiento de cámara -->
+        <item row="5" column="0" colspan="2">
+         <widget class="QPushButton" name="BtDown">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>↓</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QPushButton" name="BtUp">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>25</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>↑</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QPushButton" name="BtRight">
+          <property name="text">
+           <string>→</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QPushButton" name="BtLeft">
+          <property name="text">
+           <string>←</string>
+          </property>
+         </widget>
+        </item>
+        
+        <!-- Selectores de tipo de cámara -->
+        <item row="8" column="0" colspan="2">
+         <widget class="QRadioButton" name="RBCam1">
+          <property name="text">
+           <string>Principal</string>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="0" colspan="2">
+         <widget class="QRadioButton" name="RBCam2">
+          <property name="text">
+           <string>Alternativa</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      
+      <!-- SUBSECCIÓN: CONTROLES DE POSICIONAMIENTO -->
+      <item>
+       <layout class="QVBoxLayout" name="verticalLayout_2">
+        <!-- Espaciador -->
+        <item>
+         <spacer name="verticalSpacer_2"/>
+        </item>
+        
+        <!-- Control deslizante para Rick -->
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Posicion Rick</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="horSliRick">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        
+        <!-- Espaciador -->
+        <item>
+         <spacer name="verticalSpacer_3"/>
+        </item>
+        
+        <!-- Control deslizante para la Puerta -->
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Posicion Puerta</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="horSliP">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      
+      <!-- Espaciador final -->
+      <item>
+       <spacer name="verticalSpacer"/>
+      </item>
+      
+      <!-- Botón de salida -->
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>&amp;Sortir</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
   </layout>
  </widget>
+
+ <!-- SECCIÓN DE WIDGETS PERSONALIZADOS -->
  <customwidgets>
   <customwidget>
    <class>MyGLWidget</class>
@@ -64,7 +203,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+
+ <!-- SECCIONES VACÍAS (RESERVADAS PARA FUTURO USO) -->
+<resources/>
  <connections>
   <connection>
    <sender>pushButton</sender>
