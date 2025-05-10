@@ -45,9 +45,14 @@ void MyGLWidget::paintGL()
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    cubPos = 0;
     cubSizeX = 0.25;
     cubSizeZ = 2;
+
+    if (posRick.x >= 2 && posRick.x <= -2)
+    {
+        cubPos = 2;
+    }
+    else { cubPos = 0; }
 
     glBindVertexArray(VAO_Cub);
     CubTransform();
@@ -55,6 +60,32 @@ void MyGLWidget::paintGL()
 
     viewTransform();
 }
+
+// ------------ Transformaciones
+
+// Aplica la transformación al cubo
+void MyGLWidget::CubTransform()
+{
+    glm::mat4 TG(1.0f);
+    TG = glm::translate(TG, glm::vec3(0, 0, cubPos));
+    TG = glm::scale(TG, glm::vec3(cubSizeX, 2, cubSizeZ));
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+
+}
+
+// Aplica la transformación a la cámara de video
+void MyGLWidget::VideoCameraTransform()
+{
+    glm::mat4 TG(1.0f);
+
+    TG = glm::translate(TG, glm::vec3(0, 2.25f, -1.0f));
+    TG = glm::scale(TG, glm::vec3(escalaVideoCamera, escalaVideoCamera, escalaVideoCamera));
+    TG = glm::translate(TG, -centreCaixaVideoCamera);
+
+    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
+}
+
+// ------------ Control Camera
 
 // Inicializa los parámetros de la cámara
 void MyGLWidget::iniCamera()
@@ -118,27 +149,7 @@ void MyGLWidget::resizeGL(int width, int height)
     fov2 = fov;
 }
 
-// Aplica la transformación al cubo
-void MyGLWidget::CubTransform()
-{
-    glm::mat4 TG(1.0f);
-    TG = glm::translate(TG, glm::vec3(0, 0, cubPos));
-    TG = glm::scale(TG, glm::vec3(cubSizeX, 2, cubSizeZ));
-    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
-
-}
-
-// Aplica la transformación a la cámara de video
-void MyGLWidget::VideoCameraTransform()
-{
-    glm::mat4 TG(1.0f);
-
-    TG = glm::translate(TG, glm::vec3(0, 2.25f, -1.0f));
-    TG = glm::scale(TG, glm::vec3(escalaVideoCamera, escalaVideoCamera, escalaVideoCamera));
-    TG = glm::translate(TG, -centreCaixaVideoCamera);
-
-    glUniformMatrix4fv(transLoc, 1, GL_FALSE, &TG[0][0]);
-}
+// ------------ Interacciones
 
 // Maneja el movimiento del ratón para rotar la cámara
 void MyGLWidget::mouseMoveEvent(QMouseEvent *event)
