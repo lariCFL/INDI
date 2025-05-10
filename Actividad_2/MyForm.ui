@@ -149,6 +149,13 @@
           <property name="orientation">
            <enum>Qt::Orientation::Horizontal</enum>
           </property>
+          <property name="minimum">
+           <number>-6</number>
+          </property>
+          <property name="maximum">
+           <number>6</number>
+          </property>
+
          </widget>
         </item>
         
@@ -204,48 +211,74 @@
   </customwidget>
  </customwidgets>
 
- <!-- SECCIONES VACÍAS (RESERVADAS PARA FUTURO USO) -->
   <resources/>
-  <connections>
-    <connection>
-      <sender>pushButton</sender>
-      <signal>clicked()</signal>
-      <receiver>MyForm</receiver>
-      <slot>close()</slot>
-      <hints>
-        <hint type="sourcelabel">
-          <x>796</x>
-          <y>596</y>
-        </hint>
-        <hint type="destinationlabel">
-          <x>839</x>
-          <y>529</y>
-        </hint>
-      </hints>
-    </connection>
-    <connection>
-      <sender>RBCam1</sender>
-      <signal>clicked(bool)</signal>
-      <receiver>widget</receiver>
-      <slot>Cam1(bool)</slot>
-    </connection>
-    <connection>
-      <sender>widget</sender>
-      <signal>isCamera1(bool)</signal>
-      <receiver>RBCam1</receiver>
-      <slot>setChecked(bool)</slot>
-    </connection>
-    <connection>
-      <sender>RBCam2</sender>
-      <signal>clicked(bool)</signal>
-      <receiver>widget</receiver>
-      <slot>Cam2(bool)</slot>
-    </connection>
-    <connection>
-      <sender>widget</sender>
-      <signal>isCamera2(bool)</signal>
-      <receiver>RBCam2</receiver>
-      <slot>setChecked(bool)</slot>
-    </connection>
-  </connections>
+ <!-- SECCIÓN DE CONEXIONES (SIGNALS Y SLOTS) -->
+<connections>
+  <!-- Conexión del botón "Sortir" para cerrar la ventana principal -->
+  <connection>
+    <sender>pushButton</sender>       <!-- El objeto que emite la señal (botón de salida) -->
+    <signal>clicked()</signal>        <!-- La señal emitida (click del botón) -->
+    <receiver>MyForm</receiver>       <!-- El objeto que recibe la señal (ventana principal) -->
+    <slot>close()</slot>              <!-- El método que se ejecutará (cerrar la ventana) -->
+    <hints>
+      <hint type="sourcelabel">
+        <x>796</x>
+        <y>596</y>
+      </hint>
+      <hint type="destinationlabel">
+        <x>839</x>
+        <y>529</y>
+      </hint>
+    </hints>
+  </connection>
+
+  <!-- Conexión para cambiar a la cámara 1 -->
+  <connection>
+    <sender>RBCam1</sender>           <!-- Radio button de la cámara principal -->
+    <signal>clicked(bool)</signal>     <!-- Señal emitida al hacer click -->
+    <receiver>widget</receiver>       <!-- Widget de OpenGL que recibe la señal -->
+    <slot>Cam1(bool)</slot>           <!-- Método que activa la cámara 1 -->
+  </connection>
+
+  <!-- Conexión para sincronizar el estado del radio button de la cámara 1 -->
+  <connection>
+    <sender>widget</sender>           <!-- Widget de OpenGL como emisor -->
+    <signal>isCamera1(bool)</signal>  <!-- Señal que indica si la cámara 1 está activa -->
+    <receiver>RBCam1</receiver>       <!-- Radio button como receptor -->
+    <slot>setChecked(bool)</slot>     <!-- Método para marcar/desmarcar el radio button -->
+  </connection>
+
+  <!-- Conexión para cambiar a la cámara 2 -->
+  <connection>
+    <sender>RBCam2</sender>           <!-- Radio button de la cámara alternativa -->
+    <signal>clicked(bool)</signal>    <!-- Señal emitida al hacer click -->
+    <receiver>widget</receiver>       <!-- Widget de OpenGL que recibe la señal -->
+    <slot>Cam2(bool)</slot>           <!-- Método que activa la cámara 2 -->
+  </connection>
+
+  <!-- Conexión para sincronizar el estado del radio button de la cámara 2 -->
+  <connection>
+    <sender>widget</sender>           <!-- Widget de OpenGL como emisor -->
+    <signal>isCamera2(bool)</signal>  <!-- Señal que indica si la cámara 2 está activa -->
+    <receiver>RBCam2</receiver>       <!-- Radio button como receptor -->
+    <slot>setChecked(bool)</slot>     <!-- Método para marcar/desmarcar el radio button -->
+  </connection>
+
+  <!-- Conexión para controlar la posición de Rick mediante el slider -->
+  <connection>
+    <sender>horSliRick</sender>          <!-- El slider horizontal que controla a Rick -->
+    <signal>valueChanged(int)</signal>   <!-- Señal emitida cuando cambia el valor del slider -->
+    <receiver>widget</receiver>         <!-- El widget OpenGL que recibe la señal -->
+    <slot>MoveRick(int)</slot>          <!-- Método que actualiza la posición de Rick -->
+  </connection>
+
+  <!-- Conexión para sincronizar el slider con la posición actual de Rick -->
+  <connection>
+    <sender>widget</sender>              <!-- El widget OpenGL que emite la señal -->
+    <signal>posRickSlider(int)</signal>  <!-- Señal con la posición actual de Rick -->
+    <receiver>horSliRick</receiver>     <!-- El slider que recibe la posición -->
+    <slot>setValue(int)</slot>          <!-- Método que actualiza la posición del slider -->
+  </connection>
+
+</connections>
 </ui>

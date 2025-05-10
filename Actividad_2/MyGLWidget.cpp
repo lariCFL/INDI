@@ -191,6 +191,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         {
             posRick.x -= 1;
             angleRick = (3 * M_PI) / 2;
+            emit(posRickSlider(posRick.x));
         }
         break;
     case Qt::Key_Up: // Mueve a Rick hacia arriba
@@ -198,6 +199,7 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
         {
             posRick.x += 1;
             angleRick = M_PI / 2;
+            emit(posRickSlider(posRick.x));
         }
         break;
     case Qt::Key_C: // Cambia entre cámaras
@@ -226,6 +228,7 @@ void MyGLWidget::Cam1(bool cam)
     Camera1 = true;
     actualizarCamera();
     viewTransform();
+    paintGL();
     update();
 }
 
@@ -234,5 +237,14 @@ void MyGLWidget::Cam2(bool cam)
     Camera1 = false;
     actualizarCamera();
     viewTransform();
+    paintGL();
+    update();
+}
+
+void MyGLWidget::MoveRick(int value)
+{
+    posRick.x = value;
+    viewTransform();
+    paintGL();
     update();
 }

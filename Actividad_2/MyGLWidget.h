@@ -44,8 +44,10 @@ class MyGLWidget : public BL2GLWidget {
 signals:
     void isCamera1(bool cam);
     void isCamera2(bool cam);
+    void posRickSlider(int value);
 
 public slots:
     void Cam1(bool cam);
     void Cam2(bool cam);
+    void MoveRick(int value);
 };
