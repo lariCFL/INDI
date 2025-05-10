@@ -224,10 +224,10 @@
       </hints>
     </connection>
     <connection>
-      <sender>MyGLWidget</sender>
-      <signal>isCamera1(bool)</signal>
-      <receiver>RBCam1</receiver>
-      <slot>setChecked(bool)</slot>
+      <sender>RBCam1</sender>
+      <signal>clicked(bool)</signal>
+      <receiver>MyGLWidget</receiver>
+      <slot>updateCamera(bool)</slot>
     </connection>
   </connections>
 </ui>

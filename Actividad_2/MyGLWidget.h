@@ -43,5 +43,8 @@ class MyGLWidget : public BL2GLWidget {
 
 
 signals:
-    void isCamera1(bool);
+    void isCamera1(bool camera);
+
+public slots:
+    void updateCamera(bool cam);
 };

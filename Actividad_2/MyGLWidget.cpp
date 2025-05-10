@@ -223,3 +223,12 @@ void MyGLWidget::keyPressEvent(QKeyEvent *event)
     viewTransform();
     update();
 }
+
+// ------------ Interfaces
+void MyGLWidget::updateCamera(bool camr)
+{
+    if cam Camera1 = true;
+    else Camera1 = false;
+    actualizarCamera();
+    update();
+}
