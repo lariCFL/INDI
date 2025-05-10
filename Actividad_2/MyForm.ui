@@ -58,6 +58,14 @@
     <layout class="QVBoxLayout" name="verticalLayout">
      <!-- Layout vertical para os controles -->
      
+     <!-- Adicionando tamanho máximo ao layout -->
+     <property name="maximumSize">
+      <size>
+       <width>20</width> <!-- Largura máxima de 20 -->
+       <height>16777215</height> <!-- Altura máxima padrão (ilimitada) -->
+      </size>
+     </property>
+     
      <!-- Margem esquerda do layout -->
      <property name="leftMargin">
       <number>0</number> <!-- Sem margem esquerda -->
