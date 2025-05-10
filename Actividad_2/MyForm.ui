@@ -226,8 +226,14 @@
     <connection>
       <sender>RBCam1</sender>
       <signal>clicked(bool)</signal>
-      <receiver>MyGLWidget</receiver>
-      <slot>updateCamera(bool)</slot>
+      <receiver>widget</receiver>
+      <slot>Cam1(bool)</slot>
+    </connection>
+    <connection>
+      <sender>RBCam2</sender>
+      <signal>clicked(bool)</signal>
+      <receiver>widget</receiver>
+      <slot>Cam2(bool)</slot>
     </connection>
   </connections>
 </ui>

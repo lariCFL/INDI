@@ -41,10 +41,10 @@ class MyGLWidget : public BL2GLWidget {
     void carregaShaders() override;
     GLuint colLoc, usaColorUniformLoc;
 
-
 signals:
     void isCamera1(bool camera);
 
 public slots:
-    void updateCamera(bool cam);
+    void Cam1(bool cam);
+    void Cam2(bool cam);
 };
