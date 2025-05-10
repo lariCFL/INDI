@@ -45,6 +45,9 @@ void MyGLWidget::paintGL()
     CubTransform();
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
+    glUniform3f(colLoc, 1.0, 0.0, 0.0);  // vermelho
+
+
     cubSizeX = 0.25;
     cubSizeZ = 2;
 
@@ -59,6 +62,14 @@ void MyGLWidget::paintGL()
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     viewTransform();
+}
+
+// Carga los shaders y crea los buffers para los modelos
+void MyGLWidget::carregaShaders()
+{
+    BL2GLWidget::carregaShaders();
+    colLoc = glGetUniformLocation(program->programId(), "col");
+
 }
 
 // ------------ Transformaciones

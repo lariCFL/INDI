@@ -37,4 +37,9 @@ class MyGLWidget : public BL2GLWidget {
     // Otros
     float cubPos;
     float cubSizeX, cubSizeZ;
+
+
+
+    void carregaShaders() override;
+    GLuint colLoc;
 };
