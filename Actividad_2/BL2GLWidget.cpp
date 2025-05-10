@@ -167,6 +167,7 @@ void BL2GLWidget::identTransform ()
 // Función para configurar la matriz de proyección
 void BL2GLWidget::projectTransform ()
 {
+  DEBUG();
   glm::mat4 Proj(1.0f); // Inicializamos la matriz de proyección como la identidad
   Proj = glm::perspective (fov, ra, znear, zfar); // Configuramos la matriz de proyección en perspectiva con los parámetros de cámara
   glUniformMatrix4fv (projLoc, 1, GL_FALSE, &Proj[0][0]); // Enviamos la matriz de proyección al shader
