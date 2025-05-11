@@ -281,5 +281,34 @@
     <slot>setValue(int)</slot>          <!-- Método que actualiza la posición del slider -->
   </connection>
 
+  <!-- MOVIEMNTO CAMAra-->
+    <connection>
+        <sender>BtUp</sender>               <!-- Botón para mover la cámara hacia arriba -->
+        <signal>clicked()</signal>          <!-- Señal emitida al hacer click -->
+        <receiver>widget</receiver>         <!-- Widget de OpenGL que recibe la señal -->
+        <slot>MoveCamUp()</slot>            <!-- Método que mueve la cámara hacia arriba -->
+    </connection>
+
+    <connection>
+        <sender>BtDown</sender>             <!-- Botón para mover la cámara hacia abajo -->
+        <signal>clicked()</signal>          <!-- Señal emitida al hacer click -->
+        <receiver>widget</receiver>         <!-- Widget de OpenGL que recibe la señal -->
+        <slot>MoveCamDown()</slot>          <!-- Método que mueve la cámara hacia abajo -->
+    </connection>
+
+    <connection>
+        <sender>BtLeft</sender>             <!-- Botón para mover la cámara hacia la izquierda -->
+        <signal>clicked()</signal>          <!-- Señal emitida al hacer click -->
+        <receiver>widget</receiver>         <!-- Widget de OpenGL que recibe la señal -->
+        <slot>MoveCamLeft()</slot>          <!-- Método que mueve la cámara hacia la izquierda -->
+    </connection>
+
+    <connection>
+        <sender>BtRight</sender>            <!-- Botón para mover la cámara hacia la derecha -->
+        <signal>clicked()</signal>          <!-- Señal emitida al hacer click -->
+        <receiver>widget</receiver>         <!-- Widget de OpenGL que recibe la señal -->
+        <slot>MoveCamRight()</slot>         <!-- Método que mueve la cámara hacia la derecha -->
+    </connection>
+
 </connections>
 </ui>

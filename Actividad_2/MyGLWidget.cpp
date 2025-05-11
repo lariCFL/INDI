@@ -280,3 +280,42 @@ void MyGLWidget::MoveRick(int value)
     paintGL();
     update();
 }
+
+void MyGLWidget::MoveCam(int value)
+{
+    switch (value)
+    {
+    case 1: // Mueve la cámara hacia arriba
+        anglePsi += 0.2;
+        break;
+    case 2: // Mueve la cámara hacia abajo
+        anglePsi -= 0.2;
+        break;
+    case 3: // Mueve la cámara hacia la izquierda
+        angleTheta -= 0.2;
+        break;
+    case 4: // Mueve la cámara hacia la derecha
+        angleTheta += 0.2;
+        break;
+    
+    default:
+        break;
+    }
+}
+
+void MyGLWidget::MoveCamUp()
+{
+    MoveCam(1);
+}
+void MyGLWidget::MoveCamDown()
+{
+    MoveCam(2);
+}
+void MyGLWidget::MoveCamLeft()
+{
+    MoveCam(3);
+}
+void MyGLWidget::MoveCamRight()
+{
+    MoveCam(4);
+}
