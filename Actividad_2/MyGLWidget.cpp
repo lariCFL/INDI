@@ -252,7 +252,9 @@ void MyGLWidget::Cam1(bool cam)
 {
     Camera1 = true;
     actualizarCamera();
-
+    viewTransform();
+    paintGL();
+    update();
 }
 
 // Cambio a cámara 2
@@ -260,7 +262,9 @@ void MyGLWidget::Cam2(bool cam)
 {
     Camera1 = false;
     actualizarCamera();
-
+    viewTransform();
+    paintGL();
+    update();
 }
 
 // Movimiento de Rick
@@ -302,7 +306,9 @@ void MyGLWidget::MoveCam(int value)
     }
 
     actualizarCamera();
-
+    viewTransform();
+    paintGL();
+    update();
 }
 
 void MyGLWidget::MoveCamUp()
