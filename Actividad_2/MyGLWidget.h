@@ -38,6 +38,7 @@ class MyGLWidget : public BL2GLWidget {
     void viewTransform() override;
     void resizeGL(int width, int height) override;
     void actualizarCamera();
+    void MoveCam(int value);
 
     // -----------------------------------------------------------------
     // Atributos de cámara
@@ -65,6 +66,8 @@ class MyGLWidget : public BL2GLWidget {
     void carregaShaders() override;
     GLuint colLoc, usaColorUniformLoc;
 
+
+
   // -----------------------------------------------------------------
   // Señales
   // -----------------------------------------------------------------
@@ -80,4 +83,8 @@ class MyGLWidget : public BL2GLWidget {
     void Cam1(bool cam);
     void Cam2(bool cam);
     void MoveRick(int value);
+    void MoveCamUp();
+    void MoveCamDown();
+    void MoveCamLeft();
+    void MoveCamRight();
 };
