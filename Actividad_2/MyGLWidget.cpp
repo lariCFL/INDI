@@ -143,6 +143,9 @@ void MyGLWidget::actualizarCamera()
         znear = 0.25f;
     }
     BL2GLWidget::projectTransform();
+    viewTransform();
+    paintGL();
+    update();
 }
 
 // Transformación de vista
@@ -249,9 +252,7 @@ void MyGLWidget::Cam1(bool cam)
 {
     Camera1 = true;
     actualizarCamera();
-    viewTransform();
-    paintGL();
-    update();
+
 }
 
 // Cambio a cámara 2
@@ -259,9 +260,7 @@ void MyGLWidget::Cam2(bool cam)
 {
     Camera1 = false;
     actualizarCamera();
-    viewTransform();
-    paintGL();
-    update();
+
 }
 
 // Movimiento de Rick
@@ -301,6 +300,9 @@ void MyGLWidget::MoveCam(int value)
     default:
         break;
     }
+
+    actualizarCamera();
+
 }
 
 void MyGLWidget::MoveCamUp()
