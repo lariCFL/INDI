@@ -143,9 +143,6 @@ void MyGLWidget::actualizarCamera()
         znear = 0.25f;
     }
     BL2GLWidget::projectTransform();
-    viewTransform();
-    paintGL();
-    update();
 }
 
 // Transformación de vista
@@ -304,11 +301,6 @@ void MyGLWidget::MoveCam(int value)
     default:
         break;
     }
-
-    actualizarCamera();
-    viewTransform();
-    paintGL();
-    update();
 }
 
 void MyGLWidget::MoveCamUp()
